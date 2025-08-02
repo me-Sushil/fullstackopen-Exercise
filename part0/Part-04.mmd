@@ -1,40 +1,48 @@
-sequenceDiagram
+   sequenceDiagram
+   note over browser:
+   browser sends form data 
+   as post method to new_note url.
+   data is sent as the body
+   end note
+
+
     participant browser
     participant server
 
-    browser->>server: GET /exampleapp/new_notes
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_notes
     note over server:
-        Server creates a new note object
-        adds it to an array called notes
-        notes are stored in data.json
+    server creates a new note object,
+    and adds it to an array called notes,
+    which is represented as data.json
     end note
     activate server
-    server-->>browser: 302 redirect to /notes
+    server-->>browser: 302 url redirect to /notes
     deactivate server
 
-    browser->>server: GET /exampleapp/notes
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML code
     deactivate server
 
-    browser->>server: GET /exampleapp/main.css
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: main.css
     deactivate server
-
-    browser->>server: GET /exampleapp/main.js
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: main.js
     deactivate server
-
+    
     note over browser:
-        Browser starts executing JS code
-        It requests JSON data from the server
+    browser starts executing js-code
+    that requests JSON data from server 
     end note
 
-    browser->>server: GET /exampleapp/data.json
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: JSON response
+    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
     deactivate server
 
-    Note right of browser: Browser executes callback that renders the notes
+    Note right of browser: The browser executes the callback function that renders the notes
