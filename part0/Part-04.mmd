@@ -4,9 +4,9 @@ sequenceDiagram
 
     browser->>server: GET /exampleapp/new_notes
     note over server:
-        Server creates a new note object.
-        It adds it to an array called notes.
-        This is saved as data.json.
+        Server creates a new note object<br/>
+        Adds it to an array called notes<br/>
+        Notes are stored in data.json
     end note
     activate server
     server-->>browser: 302 redirect to /notes
@@ -28,13 +28,13 @@ sequenceDiagram
     deactivate server
 
     note over browser:
-        Browser starts executing JS code.
-        It requests JSON data from the server.
+        Browser starts executing JS code<br/>
+        It requests JSON data from the server
     end note
 
     browser->>server: GET /exampleapp/data.json
     activate server
-    server-->>browser: JSON: [{"content": "HTML is easy", "date": "2023-1-1"}, ...]
+    server-->>browser: JSON response
     deactivate server
 
-    Note right of browser: The browser executes the callback function that renders the notes.
+    Note right of browser: Browser executes callback that renders the notes
