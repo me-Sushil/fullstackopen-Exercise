@@ -3,7 +3,7 @@ sequenceDiagram
     participant server
 
     browser->>server: GET /exampleapp/new_notes
-    note over server
+    note over server:
         Server creates a new note object.
         It adds it to an array called notes.
         This is saved as data.json.
@@ -27,7 +27,7 @@ sequenceDiagram
     server-->>browser: main.js
     deactivate server
 
-    note over browser
+    note over browser:
         Browser starts executing JS code.
         It requests JSON data from the server.
     end note
