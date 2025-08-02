@@ -1,19 +1,17 @@
-   sequenceDiagram
-   
-   note over browser:
-   Browser sends form data<br/>
-   as post method to new_note url.<br/>
-   data is sent as the body
-   end note
-
+sequenceDiagram
+    note over browser:
+    Browser sends form data
+    as post method to new_note url
+    Data is sent as the body
+    end note
 
     participant browser
     participant server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_notes
     note over server:
-    server creates a new note object,
-    and adds it to an array called notes,
+    server creates a new note object
+    and adds it to an array called notes
     which is represented as data.json
     end note
     activate server
@@ -29,17 +27,16 @@
     activate server
     server-->>browser: main.css
     deactivate server
-    
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: main.js
     deactivate server
-    
-    note over browser:
-    browser starts executing js-code,
-    that requests JSON data from server, 
-    end note
 
+    note over browser:
+    browser starts executing js-code
+    that requests JSON data from server
+    end note
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
