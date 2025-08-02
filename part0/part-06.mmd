@@ -6,17 +6,13 @@ sequenceDiagram
 
 
 note over browser:
-JavaScript create note object from form adds it to 
-clint side notes array and re-renders the client 
-view. It creates a POST request to new_note_spa url
-containing the new note as JSON-data
+JS creates note obj, updates view, posts JSON to server.
 end note
 
 browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_note_spa
 
 note over server:
-server creates a new note object, and adds it to
-an array called notes, which is represented as data.json
+Server creates note obj, adds to notes array in data.json file.
 end note
 
 
