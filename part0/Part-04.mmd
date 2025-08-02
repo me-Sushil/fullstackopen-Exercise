@@ -1,40 +1,40 @@
-    sequenceDiagram
+sequenceDiagram
     participant browser
     participant server
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_notes
-    note over server:
-    server creates a new note object,
-    and adds it to an array called notes,
-    which is represented as data.json
+    browser->>server: GET /exampleapp/new_notes
+    note over server
+        Server creates a new note object.
+        It adds it to an array called notes.
+        This is saved as data.json.
     end note
     activate server
-    server-->>browser: 302 url redirect to /notes
+    server-->>browser: 302 redirect to /notes
     deactivate server
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    browser->>server: GET /exampleapp/notes
     activate server
     server-->>browser: HTML code
     deactivate server
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    browser->>server: GET /exampleapp/main.css
     activate server
     server-->>browser: main.css
     deactivate server
-    
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+
+    browser->>server: GET /exampleapp/main.js
     activate server
     server-->>browser: main.js
     deactivate server
-    
-    note over browser:
-    browser starts executing js-code
-    that requests JSON data from server 
+
+    note over browser
+        Browser starts executing JS code.
+        It requests JSON data from the server.
     end note
 
-    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    browser->>server: GET /exampleapp/data.json
     activate server
-    server-->>browser: [{ "content": "HTML is easy", "date": "2023-1-1" }, ... ]
+    server-->>browser: JSON: [{"content": "HTML is easy", "date": "2023-1-1"}, ...]
     deactivate server
 
-    Note right of browser: The browser executes the callback function that renders the notes
+    Note right of browser: The browser executes the callback function that renders the notes.
