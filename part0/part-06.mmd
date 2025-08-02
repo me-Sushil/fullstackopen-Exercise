@@ -1,23 +1,21 @@
 sequenceDiagram
 
-    participant browser
-    participant server
-
-
+participant browser
+participant server
 
 note over browser:
-JS creates note obj, updates view, posts JSON to server.
+JS creates note obj updates view posts JSON to server.
 end note
 
 browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/new_note_spa
 
 note over server:
-Server creates note obj, adds to notes array in data.json file.
+Server creates note obj adds to notes array in data.json file.
 end note
 
-
-
-
+activate server
 server-->>browser: 201 created
+deactivate server
+
    
 
