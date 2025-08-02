@@ -4,8 +4,8 @@ sequenceDiagram
 
     browser->>server: GET /exampleapp/new_notes
     note over server:
-        Server creates a new note object<br/>
-        Adds it to an array called notes<br/>
+        Server creates a new note object
+        Adds it to an array called notes
         Notes are stored in data.json
     end note
     activate server
@@ -28,7 +28,7 @@ sequenceDiagram
     deactivate server
 
     note over browser:
-        Browser starts executing JS code<br/>
+        Browser starts executing JS code
         It requests JSON data from the server
     end note
 
