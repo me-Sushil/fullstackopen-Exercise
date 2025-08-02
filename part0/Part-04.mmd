@@ -5,8 +5,8 @@ sequenceDiagram
     browser->>server: GET /exampleapp/new_notes
     note over server:
         Server creates a new note object
-        Adds it to an array called notes
-        Notes are stored in data.json
+        adds it to an array called notes
+        notes are stored in data.json
     end note
     activate server
     server-->>browser: 302 redirect to /notes
