@@ -1,9 +1,12 @@
   const Content = ({ parts }) => {
     return (
       <>
-        <Part parts={parts[0]} />
+      <p>{parts[0].name} {parts[0].exercises}</p>
+      <p>{parts[1].name} {parts[1].exercises}</p>
+      <p>{parts[1].name} {parts[1].exercises}</p>
+        {/* <Part parts={parts[0]} />
         <Part parts={parts[1]} />
-        <Part parts={parts[2]} />
+        <Part parts={parts[2]} /> */}
       </>
     );
   };
