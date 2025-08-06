@@ -3,8 +3,8 @@ import Content from "./Content";
 const Course=({course})=>{
     return(
         <>
-        <Header name={course.name}/>
-        <Content parts={course.parts}/>
+        <Header name={course[0].name}/>
+        <Content parts={course[0].parts}/>
         </>
     )
 }
