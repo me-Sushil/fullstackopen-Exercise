@@ -3,7 +3,7 @@ import { useState } from 'react'
 const Statistics =(props)=>{
   return(
     <>
-    <p>{props.text} {props.value}</p>
+    <p>{props.text} {props.value} {props.per}</p>
     </>
   )
 
@@ -57,7 +57,7 @@ const App = () => {
       <Statistics value={bad} text="bad"/>
       <Statistics value={all} text="all"/>
       <Statistics value={average} text="average"/>
-      <Statistics value={positive} text="positive"/>
+      <Statistics value={positive} text="positive" per="%"/>
       {/* <p>good {good}</p> 
        <p>neutral {neutral}</p>
       <p>bad {bad}</p>
