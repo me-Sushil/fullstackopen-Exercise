@@ -11,4 +11,5 @@ const Node = ({node})=>{
         </>
     )
 }
+
 export default Node;

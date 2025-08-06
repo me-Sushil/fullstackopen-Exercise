@@ -1,6 +1,7 @@
 import Header from "./Header";
 import Content from "./Content";
 import Node from "./Node";
+
 const Course=({course})=>{
     return(
         <>
