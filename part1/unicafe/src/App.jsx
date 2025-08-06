@@ -1,45 +1,40 @@
 import { useState } from "react";
 
-const StatisticLine=({value, text, per})=>{
-  return(
-    <>
-    <p>{text} {value} {per}</p>
-    </>
-  )
-
-}
-
-const Statistics = ({ good, neutral, bad, all, average, positive }) => {
+const StatisticLine = ({ value, text, per }) => {
   return (
-    <>
-      {all === 0 ? (<StatisticLine text="no feedback given" />) :(
-      <>
-      <StatisticLine value={good} text="good"/>
-      <StatisticLine value={neutral} text="neutral"/>
-      <StatisticLine value={bad} text="bad"/>
-      <StatisticLine value={all} text="all"/>
-      <StatisticLine value={average} text="average"/>
-      <StatisticLine value={positive} text="positive" per="%"/>
-
-      {/* <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {average}</p>
-      <p>positive {positive} %</p> */}
-      </>
-    )}
-    </>
+    <tr>
+      <td>{text}</td> 
+      <td>{value}{per}</td>
+    </tr>
   );
 };
 
+const Statistics = ({ good, neutral, bad, all, average, positive }) => {
+  if (all === 0) {
+    return <p>no feedback given </p>;
+  }
 
-const Button=({onClick, text})=>{
-  return(
+  return (
+    <table>
+      <tbody>
+        <StatisticLine value={good} text="good" />
+        <StatisticLine value={neutral} text="neutral" />
+        <StatisticLine value={bad} text="bad" />
+        <StatisticLine value={all} text="all" />
+        <StatisticLine value={average} text="average" />
+        <StatisticLine value={positive} text="positive" per="%" />
+      </tbody>
+    </table>
+  );
+};
+
+const Button = ({ onClick, text }) => {
+  return (
     <>
-    <button onClick={onClick}>{text}</button>
+      <button onClick={onClick}>{text}</button>
     </>
-  )
-}
+  );
+};
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -77,9 +72,9 @@ const App = () => {
   return (
     <div>
       <h1>give feedback</h1>
-      <Button onClick={handleGoodClick} text ="good" />
-      <Button onClick={handleNeutralClick} text ="neutral" />
-      <Button onClick={handleBadClick} text ="bad" />
+      <Button onClick={handleGoodClick} text="good" />
+      <Button onClick={handleNeutralClick} text="neutral" />
+      <Button onClick={handleBadClick} text="bad" />
       {/* <button onClick={handleGoodClick}>good</button>
       <button onClick={handleNeutralClick}>neutral</button>
       <button onClick={handleBadClick}>bad</button> */}
