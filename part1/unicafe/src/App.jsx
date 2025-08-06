@@ -53,12 +53,17 @@ const App = () => {
       <button onClick={handleBadClick}>bad</button>
       <h1>statistics</h1>
       <Statistics value={good} text="good"/>
-      {/* <p>good {good}</p> */}
-      <p>neutral {neutral}</p>
+      <Statistics value={neutral} text="neutral"/>
+      <Statistics value={bad} text="bad"/>
+      <Statistics value={all} text="all"/>
+      <Statistics value={average} text="average"/>
+      <Statistics value={positive} text="positive"/>
+      {/* <p>good {good}</p> 
+       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
       <p>all {all}</p>
       <p>average {average}</p>
-      <p>positive {positive}%</p>
+      <p>positive {positive}%</p> */}
     </div>
   )
 }
