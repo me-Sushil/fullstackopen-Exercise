@@ -1,7 +1,7 @@
-const Filter=({search, setSearch})=>{
-    return(
-        <>
-        <p>
+const Filter = ({ search, setSearch }) => {
+  return (
+    <>
+      <p>
         filter shown with
         <input
           placeholder="Search by name"
@@ -9,7 +9,7 @@ const Filter=({search, setSearch})=>{
           onChange={(event) => setSearch(event.target.value)}
         />
       </p>
-        </>
-    )
-}
+    </>
+  );
+};
 export default Filter;

@@ -1,14 +1,16 @@
 import { useState } from "react";
-const PersonForm=({persons, setPersons})=>{
+const PersonForm = ({ persons, setPersons }) => {
+  const [number, setNumber] = useState("");
+  const [newName, setNewName] = useState("");
 
-      const [number, setNumber] = useState("");
-        const [newName, setNewName] = useState("");
-
-      
   function handleSubmit(event) {
     event.preventDefault();
     if (newName.trim() === "" && number.trim() === "") return;
-    if (persons.some((person) => person.name.toLowerCase() === newName.trim().toLowerCase())) {
+    if (
+      persons.some(
+        (person) => person.name.toLowerCase() === newName.trim().toLowerCase()
+      )
+    ) {
       window.alert(`${newName} already added to phonebook`);
       setNewName("");
     } else {
@@ -21,10 +23,10 @@ const PersonForm=({persons, setPersons})=>{
       setNewName("");
       setNumber("");
     }
-  } 
-    return(
-        <>
-        <form onSubmit={handleSubmit}>
+  }
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
         <div>
           <p>
             name:
@@ -48,8 +50,8 @@ const PersonForm=({persons, setPersons})=>{
           <button type="submit">add</button>
         </div>
       </form>
-        </>
-    )
-}
+    </>
+  );
+};
 
 export default PersonForm;
