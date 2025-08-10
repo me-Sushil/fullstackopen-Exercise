@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Person from "./components/Person";
+import axios from "axios";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ id: 1, name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
+
+  useEffect(()=>{
+    
+  },[])
   return (
     <>
       <h2>Phonebook</h2>
