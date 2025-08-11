@@ -10,7 +10,7 @@ const Person = ({ search, persons, setPersons }) => {
       {filteredPerson.map((person) => {
         return (
           <p key={person.id}>
-            {person.name} {person.number} <Delete id={person.id} setPersons={setPersons}/>
+            {person.name} {person.number} <Delete id={person.id} name={person.name} setPersons={setPersons}/>
           </p>
         );
       })}
