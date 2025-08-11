@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 const PersonForm = ({ persons, setPersons }) => {
   const [number, setNumber] = useState("");
@@ -19,7 +20,11 @@ const PersonForm = ({ persons, setPersons }) => {
         name: newName.trim(),
         number: number.trim(),
       };
-      setPersons(persons.concat(newObj));
+      axios.post("http://localhost:3001/persons", newObj).then((response) => {
+        setPersons(persons.concat(response.data));
+        console.log(response.data, "the responce is");
+      })
+      //setPersons(persons.concat(newObj));
       setNewName("");
       setNumber("");
     }
