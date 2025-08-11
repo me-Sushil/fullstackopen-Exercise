@@ -16,7 +16,7 @@ const PersonForm = ({ persons, setPersons }) => {
       setNewName("");
     } else {
       const newObj = {
-        id: persons.length + 1,
+        id: `${persons.length + 1}`,
         name: newName.trim(),
         number: number.trim(),
       };

@@ -1,4 +1,5 @@
-const Person = ({ search, persons }) => {
+import Delete from "./Delete";
+const Person = ({ search, persons, setPersons }) => {
   const filteredPerson = search
     ? persons.filter((person) =>
         person.name.toLowerCase().includes(search.toLowerCase())
@@ -9,7 +10,7 @@ const Person = ({ search, persons }) => {
       {filteredPerson.map((person) => {
         return (
           <p key={person.id}>
-            {person.name} {person.number}
+            {person.name} {person.number} <Delete id={person.id} setPersons={setPersons}/>
           </p>
         );
       })}

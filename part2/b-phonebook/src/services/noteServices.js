@@ -9,6 +9,9 @@ const getAll=()=>{
 const create=(newObj)=>{
    return axios.post(url, newObj).then(responce=>responce.data)
 }
+const deleteNote=(id)=>{
+    return axios.delete(`${url}/${id}`).then(response=> response.data);
+}
 
 
-export default {getAll, create};
+export default {getAll, create, deleteNote};

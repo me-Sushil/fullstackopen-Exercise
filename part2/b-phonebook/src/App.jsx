@@ -24,7 +24,7 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Person search={search} persons={persons} />
+      <Person search={search} persons={persons} setPersons={setPersons} />
     </>
   );
 };
