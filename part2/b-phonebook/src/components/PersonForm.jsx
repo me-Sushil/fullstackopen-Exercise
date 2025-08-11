@@ -7,13 +7,27 @@ const PersonForm = ({ persons, setPersons }) => {
   function handleSubmit(event) {
     event.preventDefault();
     if (newName.trim() === "" && number.trim() === "") return;
-    if (
-      persons.some(
-        (person) => person.name.toLowerCase() === newName.trim().toLowerCase()
-      )
-    ) {
-      window.alert(`${newName} already added to phonebook`);
-      setNewName("");
+    const yes = persons.find(
+      (person) => person.name.toLowerCase() === newName.trim().toLowerCase()
+    );
+    if (yes) {
+      const confirm = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one ?`);
+      if (confirm) {
+        const id = yes.id;
+        const upnum = {
+          ...yes,
+          number: number,
+        };
+        NoteServices.update(id, upnum).then((updatePerson) => {
+          console.log(updatePerson,"updated person");
+          setPersons((prev) =>
+            prev.map((person) => (person.id === id ? updatePerson : person))
+          );
+        });
+        setNewName("");
+        setNumber("");
+      }
+      //setNewName("");
     } else {
       const newObj = {
         id: `${persons.length + 1}`,

@@ -13,5 +13,7 @@ const deleteNote=(id)=>{
     return axios.delete(`${url}/${id}`).then(response=> response.data);
 }
 
-
-export default {getAll, create, deleteNote};
+const update=(id, newObj)=>{
+    return axios.put(`${url}/${id}`, newObj).then(responce=>responce.data);
+}
+export default {getAll, create, deleteNote, update};
