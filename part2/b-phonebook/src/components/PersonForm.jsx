@@ -19,29 +19,43 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
 
       if (confirm) {
         const id = yes.id;
+
+        if (!persons.some((p) => p.name === persons.name)) {
+          setMessage(
+            `Information of ${newName} has already been removed from server`
+          );
+          setTimeout(() => setMessage("message here"), 1500);
+          return;
+        }
+
         const upnum = {
           ...yes,
           number: number,
         };
-        NoteServices.update(id, upnum).then((updatePerson) => {
-          console.log(updatePerson, "updated person");
-          setPersons((prev) =>
-            prev.map((person) => (person.id === id ? updatePerson : person))
-          );
-        });
+        NoteServices.update(id, upnum)
+          .then((updatePerson) => {
+            console.log(updatePerson, "updated person");
+            setPersons((prev) =>
+              prev.map((person) => (person.id === id ? updatePerson : person))
+            );
+          })
+          .catch((error) => {
+            console.log(error, "error");
+            setMessage(`${newName} is already removed from server`);
+          });
 
-         setMessage(`${newName} number update to phonebook`);
+        setMessage(`${newName} number update to phonebook`);
         setTimeout(() => {
-         setMessage("message here");
+          setMessage("message here");
         }, 1500);
 
         setNewName("");
         setNumber("");
-      }else{
-       setMessage(`cancel to update number`);
-    setTimeout(()=>{
-      setMessage("message here");
-    },1500)
+      } else {
+        setMessage(`cancel to update number`);
+        setTimeout(() => {
+          setMessage("message here");
+        }, 1500);
       }
     } else {
       const newObj = {
@@ -60,10 +74,9 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
       setNewName("");
       setNumber("");
       setMessage(`${newName} is successfully added`);
-      setTimeout(()=>{
+      setTimeout(() => {
         setMessage(`message here`);
-      },1500)
-      
+      }, 1500);
     }
   }
   return (
