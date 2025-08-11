@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Person from "./components/Person";
-import axios from "axios";
+import NoteServices from "./services/NoteServices";
+// import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then((response) => setPersons(response.data));
+    NoteServices.getAll().then((res) => setPersons(res))
+    // axios
+    //   .get("http://localhost:3001/persons")
+    //   .then((responce) => setPersons(responce.data));
   }, []);
 
-  
+
   return (
     <>
       <h2>Phonebook</h2>

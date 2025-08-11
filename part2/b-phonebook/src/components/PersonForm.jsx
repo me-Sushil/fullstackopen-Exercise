@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState } from "react";
+import NoteServices from "../services/NoteServices";
 const PersonForm = ({ persons, setPersons }) => {
   const [number, setNumber] = useState("");
   const [newName, setNewName] = useState("");
@@ -20,11 +20,14 @@ const PersonForm = ({ persons, setPersons }) => {
         name: newName.trim(),
         number: number.trim(),
       };
-      axios.post("http://localhost:3001/persons", newObj).then((response) => {
-        setPersons(persons.concat(response.data));
-        console.log(response.data, "the responce is");
-      })
-      //setPersons(persons.concat(newObj));
+      NoteServices.create(newObj).then((createRes) =>
+        setPersons(persons.concat(createRes))
+      );
+      // axios.post("http://localhost:3001/persons", newObj).then((response) => {
+      //   setPersons(persons.concat(response.data));
+      //   console.log(response.data, "the responce is");
+      // })
+      // setPersons(persons.concat(newObj));
       setNewName("");
       setNumber("");
     }
