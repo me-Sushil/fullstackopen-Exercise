@@ -3,11 +3,14 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Person from "./components/Person";
 import NoteServices from "./services/NoteServices";
+import "./index.css";
+import Notification from "./components/Notification";
 // import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [search, setSearch] = useState("");
+  const [message, setMessage] = useState("message here");
 
   useEffect(() => {
     NoteServices.getAll().then((res) => setPersons(res))
@@ -21,10 +24,11 @@ const App = () => {
     <>
       <h2>Phonebook</h2>
       <Filter search={search} setSearch={setSearch} />
+      <Notification message={message}/>
       <h3>add a new</h3>
-      <PersonForm persons={persons} setPersons={setPersons} />
+      <PersonForm persons={persons} setPersons={setPersons} setMessage={setMessage}/>
       <h2>Numbers</h2>
-      <Person search={search} persons={persons} setPersons={setPersons} />
+      <Person search={search} persons={persons} setMessage={setMessage} setPersons={setPersons} />
     </>
   );
 };

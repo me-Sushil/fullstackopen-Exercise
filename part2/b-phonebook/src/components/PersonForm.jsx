@@ -1,17 +1,22 @@
 import { useState } from "react";
 import NoteServices from "../services/NoteServices";
-const PersonForm = ({ persons, setPersons }) => {
+const PersonForm = ({ persons, setPersons, setMessage }) => {
   const [number, setNumber] = useState("");
   const [newName, setNewName] = useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
     if (newName.trim() === "" && number.trim() === "") return;
+
     const yes = persons.find(
       (person) => person.name.toLowerCase() === newName.trim().toLowerCase()
     );
+
     if (yes) {
-      const confirm = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one ?`);
+      const confirm = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one ?`
+      );
+
       if (confirm) {
         const id = yes.id;
         const upnum = {
@@ -19,15 +24,25 @@ const PersonForm = ({ persons, setPersons }) => {
           number: number,
         };
         NoteServices.update(id, upnum).then((updatePerson) => {
-          console.log(updatePerson,"updated person");
+          console.log(updatePerson, "updated person");
           setPersons((prev) =>
             prev.map((person) => (person.id === id ? updatePerson : person))
           );
         });
+
+         setMessage(`${newName} number update to phonebook`);
+        setTimeout(() => {
+         setMessage("message here");
+        }, 1500);
+
         setNewName("");
         setNumber("");
+      }else{
+       setMessage(`cancel to update number`);
+    setTimeout(()=>{
+      setMessage("message here");
+    },1500)
       }
-      //setNewName("");
     } else {
       const newObj = {
         id: `${persons.length + 1}`,
@@ -44,6 +59,11 @@ const PersonForm = ({ persons, setPersons }) => {
       // setPersons(persons.concat(newObj));
       setNewName("");
       setNumber("");
+      setMessage(`${newName} is successfully added`);
+      setTimeout(()=>{
+        setMessage(`message here`);
+      },1500)
+      
     }
   }
   return (
