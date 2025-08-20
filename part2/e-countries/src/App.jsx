@@ -36,7 +36,9 @@ function App() {
             placeholder="search country"
           ></input>
         </p>
-        {search &&(filter.length > 10 ? (
+
+        {search && (filter.length > 10 && <p>Too many matches, specify another filter</p>)}
+        {/* {search &&(filter.length > 10 ? (
             <p> Too many matches, specify another filter</p>
           ) : (
             <div>
@@ -46,7 +48,7 @@ function App() {
                 ))}
               </ul>
             </div>
-          ))}
+          ))} */}
       </div>
     </>
   );
