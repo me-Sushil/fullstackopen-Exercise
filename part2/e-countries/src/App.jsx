@@ -47,8 +47,14 @@ function App() {
 
         {search &&(filter.length === 1 && (
           <div>
-          <h2>{filter.name.common}</h2>
-          <h4>{filter.capital}</h4>
+          <h2>{filter[0].name.common}</h2>
+          <p>Capital {filter[0].capital}</p>
+          <p>Area {filter[0].area}</p>
+
+          <h4>Language</h4>
+         <ul> {Object.values(filter[0].languages).map((lan, idx)=><li key={idx}>{lan}</li>)}</ul>
+
+         <img src={filter[0].coatOfArms.png} alt="country" style={{height:"200px", width:"200px"}} />
           </div>
         ))}
       </div>
