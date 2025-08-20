@@ -38,17 +38,19 @@ function App() {
         </p>
 
         {search && (filter.length > 10 && <p>Too many matches, specify another filter</p>)}
-        {/* {search &&(filter.length > 10 ? (
-            <p> Too many matches, specify another filter</p>
-          ) : (
-            <div>
-              <ul>
-                {filter.map((co, index) => (
-                  <li key={index}>{co.name.common}</li>
-                ))}
-              </ul>
-            </div>
-          ))} */}
+       
+        {search && (filter.length <=10 && filter.length > 1 &&(
+          <ul>
+            {filter.map((c, index)=><li key={index}>{c.name.common}</li>)}
+          </ul>
+        ))}
+
+        {search &&(filter.length === 1 && (
+          <div>
+          <h2>{filter.name.common}</h2>
+          <h4>{filter.capital}</h4>
+          </div>
+        ))}
       </div>
     </>
   );
