@@ -6,6 +6,9 @@ function App() {
   const [result, setResult] = useState([]);
   const [filter, setFilter] = useState([]);
 
+  const apiKey = import.meta.env.VITE_API_KEY;
+
+
   useEffect(() => {
     axios
       .get(`https://studies.cs.helsinki.fi/restcountries/api/all/`)
