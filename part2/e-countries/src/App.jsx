@@ -1,9 +1,11 @@
-
+import "./style.css";
 function App() {
 
   return (
     <>
-      <div>Hello Sushil</div>
+      <div>
+      <p>Find countries <input className="search" placeholder="search country"></input></p>
+      </div>
     </>
   )
 }
