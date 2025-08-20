@@ -5,9 +5,9 @@ function App() {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
   const [filter, setFilter] = useState([]);
+  const [weather, setWeather] = useState([]);
 
   const apiKey = import.meta.env.VITE_API_KEY;
-
 
   useEffect(() => {
     axios
@@ -23,9 +23,20 @@ function App() {
         co.name.common.toLowerCase().includes(search.toLowerCase())
       )
     );
-    
   }, [search, result]);
   console.log(filter, "this is filter data");
+
+  const geourl = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${apiKey}&units=metric`;
+
+  useEffect(() => {
+    const controldRequest = setTimeout(() => {
+      axios.get(geourl).then((response) => {
+        console.log(response.data);
+        setWeather(response.data);
+      });
+    }, 1000);
+    return () => clearTimeout(controldRequest);
+  }, [search]);
 
   return (
     <>
@@ -40,26 +51,47 @@ function App() {
           ></input>
         </p>
 
-        {search && (filter.length > 10 && <p>Too many matches, specify another filter</p>)}
-       
-        {search && (filter.length <=10 && filter.length > 1 &&(
+        {search && filter.length > 10 && (
+          <p>Too many matches, specify another filter</p>
+        )}
+
+        {search && filter.length <= 10 && filter.length > 1 && (
           <ul>
-            {filter.map((c, index)=><li key={index}>{c.name.common} <button onClick={()=>setFilter([c])}>Show</button></li>)}
+            {filter.map((c, index) => (
+              <li key={index}>
+                {c.name.common}{" "}
+                <button onClick={() => setFilter([c])}>Show</button>
+              </li>
+            ))}
           </ul>
-        ))}
+        )}
 
-        {search &&(filter.length === 1 && (
+        {search && filter.length === 1 && (
           <div>
-          <h2>{filter[0].name.common}</h2>
-          <p>Capital {filter[0].capital}</p>
-          <p>Area {filter[0].area}</p>
+            <h2>{filter[0].name.common}</h2>
+            <p>Capital {filter[0].capital}</p>
+            <p>Area {filter[0].area}</p>
 
-          <h4>Language</h4>
-         <ul> {Object.values(filter[0].languages).map((lan, idx)=><li key={idx}>{lan}</li>)}</ul>
+            <h4>Language</h4>
+            <ul>
+              {" "}
+              {Object.values(filter[0].languages).map((lan, idx) => (
+                <li key={idx}>{lan}</li>
+              ))}
+            </ul>
 
-         <img src={filter[0].coatOfArms.png} alt="country" style={{height:"200px", width:"200px"}} />
+            <img
+              src={filter[0].coatOfArms.png}
+              alt="country"
+              style={{ height: "200px", width: "200px" }}
+            />
           </div>
-        ))}
+        )}
+      </div>
+      <div>
+        <h2>Weather in {weather?.name}</h2>
+        <p>Tempreture : {weather?.main?.temp} Celsius</p>
+        <p>Wind {weather?.wind?.speed} m/s</p>
       </div>
     </>
   );
