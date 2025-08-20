@@ -20,6 +20,7 @@ function App() {
         co.name.common.toLowerCase().includes(search.toLowerCase())
       )
     );
+    
   }, [search, result]);
   console.log(filter, "this is filter data");
 
@@ -40,7 +41,7 @@ function App() {
        
         {search && (filter.length <=10 && filter.length > 1 &&(
           <ul>
-            {filter.map((c, index)=><li key={index}>{c.name.common}</li>)}
+            {filter.map((c, index)=><li key={index}>{c.name.common} <button onClick={()=>setFilter([c])}>Show</button></li>)}
           </ul>
         ))}
 
