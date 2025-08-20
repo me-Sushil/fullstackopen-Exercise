@@ -21,7 +21,6 @@ function App() {
       )
     );
   }, [search, result]);
-
   console.log(filter, "this is filter data");
 
   return (
