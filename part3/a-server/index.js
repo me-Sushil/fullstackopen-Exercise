@@ -60,6 +60,11 @@ app.delete("/api/persons/:id", (request, response)=>{
 
 app.post("/api/persons", (request, response)=>{
     const data = request.body;
+
+    if(!data.name){
+        return response.status(400).send({error:"name is missing"})
+    }
+    
     const newData = {
         id:String(Math.floor(Math.random()*1000)),
         name:data.name,
