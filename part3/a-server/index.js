@@ -33,7 +33,10 @@ app.get("/api/persons", (request, response)=>{
 
 app.get("/info", (request, response)=>{
 response.send(
-   `<p>Phonebook has info for ${person.length} people</p>`
+    `<div>
+   <p>Phonebook has info for ${person.length} people</p>
+   <p>${new Date().toString()}<p>
+   </div>`
 )
 })
 
