@@ -5,12 +5,14 @@ app.use(express.json());
 // app.use(morgan("tiny"));
 
 // Create a custom token to log request body
-morgan.tokan("body",(req)=>{
-   return req.method === "POST" ? JSON.stringify(req.body):""
-})
+morgan.token("body", (req) => {
+  return req.method === "POST" ? JSON.stringify(req.body) : "";
+});
 
-
-
+// Use morgan with 'tiny' + custom token
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
 
 let persons = [
   {
