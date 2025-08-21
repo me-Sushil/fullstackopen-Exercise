@@ -64,7 +64,9 @@ app.post("/api/persons", (request, response)=>{
     if(!data.name){
         return response.status(400).send({error:"name is missing"})
     }
-    
+    if(!data.number){
+        return response.status(400).send({error:"number is missing"})
+    }
     const newData = {
         id:String(Math.floor(Math.random()*1000)),
         name:data.name,
