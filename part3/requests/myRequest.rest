@@ -8,6 +8,6 @@ content-type:application/json
 
 {
     "name": "Sugam Vai", 
-    "numsber": "040-123456"
+    "number": "040-123456"
 }
 

@@ -67,6 +67,12 @@ app.post("/api/persons", (request, response)=>{
     if(!data.number){
         return response.status(400).send({error:"number is missing"})
     }
+
+    const dName = persons.find(p=> p.name === data.name);
+    if(dName){
+        return response.status(409).send({error:"name must be unique"})
+    }
+
     const newData = {
         id:String(Math.floor(Math.random()*1000)),
         name:data.name,
