@@ -60,9 +60,12 @@ app.delete("/api/persons/:id", (request, response)=>{
 
 app.post("/api/persons", (request, response)=>{
     const data = request.body;
-    data.id = String(Math.floor(Math.random()*1000));
-
-    persons.push(data);
+    const newData = {
+        id:String(Math.floor(Math.random()*1000)),
+        name:data.name,
+        number:data.number
+    }
+    persons.push(newData);
     response.json(persons);
 })
 
