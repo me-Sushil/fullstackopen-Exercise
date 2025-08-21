@@ -20,7 +20,7 @@ const person = [
     },
     { 
       "id": "4",
-      "name": "Mary Poppendieck", 
+      "name": "Sushil Bishowkarma", 
       "number": "39-23-6423122"
     }
 ]
