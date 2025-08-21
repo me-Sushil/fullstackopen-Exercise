@@ -40,6 +40,15 @@ response.send(
 )
 })
 
+app.get("/api/persons/:id", (request, response)=>{
+    const personId = request.params.id;
+    const reqData = person.find((p)=> p.id === personId);
+    if(!reqData){
+        response.status(404).json("Data not found");
+    }
+    response.json(reqData);
+})
+
 const PORT = 3001;
 app.listen(PORT);
 console.log("The server is running", PORT);
