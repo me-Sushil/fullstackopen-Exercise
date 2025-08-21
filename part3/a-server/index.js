@@ -15,7 +15,7 @@ const person = [
     },
     { 
       "id": "3",
-      "name": "Dan Abramov", 
+      "name": "Sudesh moteh", 
       "number": "12-43-234345"
     },
     { 
