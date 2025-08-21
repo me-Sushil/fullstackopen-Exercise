@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const person = [
+let persons = [
     { 
       "id": "1",
       "name": "Arto Hellas", 
@@ -27,14 +27,14 @@ const person = [
 
 
 app.get("/api/persons", (request, response)=>{
-    response.json(person);
+    response.json(persons);
 })
 
 
 app.get("/info", (request, response)=>{
 response.send(
     `<div>
-   <p>Phonebook has info for ${person.length} people</p>
+   <p>Phonebook has info for ${persons.length} people</p>
    <p>${new Date().toString()}<p>
    </div>`
 )
@@ -42,11 +42,19 @@ response.send(
 
 app.get("/api/persons/:id", (request, response)=>{
     const personId = request.params.id;
-    const reqData = person.find((p)=> p.id === personId);
+    const reqData = persons.find((p)=> p.id === personId);
     if(!reqData){
         response.status(404).json("Data not found");
     }
     response.json(reqData);
+})
+
+
+app.delete("/api/persons/:id", (request, response)=>{
+    const perId = request.params.id;
+
+    persons = persons.filter((p)=> p.id !== perId);
+    response.status(204).end();
 })
 
 const PORT = 3001;
