@@ -13,7 +13,6 @@ morgan.token("body", (req) => {
 });
 
 
-
 // Use morgan with 'tiny' + custom token
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
@@ -91,7 +90,7 @@ app.post("/api/persons", (request, response) => {
     name: data.name,
     number: data.number,
   };
-  
+
   persons.push(newData);
   response.json(newData);
 });
