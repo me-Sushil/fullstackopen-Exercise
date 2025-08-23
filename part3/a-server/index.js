@@ -92,7 +92,7 @@ app.post("/api/persons", (request, response) => {
     number: data.number,
   };
   persons.push(newData);
-  response.json(persons);
+  response.json(newData);
 });
 
 const PORT = 3001;
