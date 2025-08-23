@@ -59,7 +59,7 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
       }
     } else {
       const newObj = {
-        id: `${persons.length + 1}`,
+        // id: `${persons.length + 1}`,
         name: newName.trim(),
         number: number.trim(),
       };
