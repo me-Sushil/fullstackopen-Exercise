@@ -5,7 +5,7 @@ const morgan = require("morgan");
 app.use(express.json());
 app.use(cors());
 // app.use(morgan("tiny"));
-app.use(express.static("dist"));
+app.use(express.static("dist"));//check dist folder and run static files
 
 
 // Create a custom token to log request body
