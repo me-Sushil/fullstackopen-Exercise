@@ -91,6 +91,7 @@ app.post("/api/persons", (request, response) => {
     name: data.name,
     number: data.number,
   };
+  
   persons.push(newData);
   response.json(newData);
 });
