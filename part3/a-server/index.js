@@ -5,6 +5,7 @@ const morgan = require("morgan");
 app.use(express.json());
 app.use(cors());
 // app.use(morgan("tiny"));
+app.use(express.static("dist"));
 
 
 // Create a custom token to log request body
