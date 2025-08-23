@@ -6,6 +6,7 @@ app.use(express.json());
 app.use(cors());
 // app.use(morgan("tiny"));
 
+
 // Create a custom token to log request body
 morgan.token("body", (req) => {
   return req.method === "POST" ? JSON.stringify(req.body) : "";
