@@ -33,30 +33,30 @@ app.get("/api/persons", (request, response) => {
     });
 });
 
-app.get("/info", (request, response) => {
-  response.send(
-    `<div>
-   <p>Phonebook has info for ${persons.length} people</p>
-   <p>${new Date().toString()}<p>
-   </div>`
-  );
-});
+// app.get("/info", (request, response) => {
+//   response.send(
+//     `<div>
+//    <p>Phonebook has info for ${persons.length} people</p>
+//    <p>${new Date().toString()}<p>
+//    </div>`
+//   );
+// });
 
-app.get("/api/persons/:id", (request, response) => {
-  const personId = request.params.id;
-  const reqData = persons.find((p) => p.id === personId);
-  if (!reqData) {
-    response.status(404).json("Data not found");
-  }
-  response.json(reqData);
-});
+// app.get("/api/persons/:id", (request, response) => {
+//   const personId = request.params.id;
+//   const reqData = persons.find((p) => p.id === personId);
+//   if (!reqData) {
+//     response.status(404).json("Data not found");
+//   }
+//   response.json(reqData);
+// });
 
-app.delete("/api/persons/:id", (request, response) => {
-  const perId = request.params.id;
+// app.delete("/api/persons/:id", (request, response) => {
+//   const perId = request.params.id;
 
-  persons = persons.filter((p) => p.id !== perId);
-  response.status(204).end();
-});
+//   persons = persons.filter((p) => p.id !== perId);
+//   response.status(204).end();
+// });
 
 app.post("/api/persons", (request, response) => {
   const data = request.body;
@@ -68,18 +68,18 @@ app.post("/api/persons", (request, response) => {
     return response.status(400).send({ error: "number is missing" });
   }
 
-  const dName = persons.find((p) => p.name === data.name);
+  const dName = Person.find((p) => p.name === data.name);
   if (dName) {
     return response.status(409).send({ error: "name must be unique" });
   }
 
   const newData = {
-    id: String(Math.floor(Math.random() * 1000)),
+    // id: String(Math.floor(Math.random() * 1000)),
     name: data.name,
     number: data.number,
   };
 
-  persons.push(newData);
+  Person.push(newData);
   response.json(newData);
 });
 
