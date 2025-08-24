@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.static("dist"));//check dist folder and run static files
 require("dotenv").config();
 
+const Person = require("./models/person");
 // Create a custom token to log request body
 morgan.token("body", (req) => {
   return req.method === "POST" ? JSON.stringify(req.body) : "";
