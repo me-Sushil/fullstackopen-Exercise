@@ -1,3 +1,4 @@
+const { response } = require('express')
 const mongoose = require('mongoose')
 
 if (process.argv.length < 5) {
@@ -14,12 +15,12 @@ mongoose.connect(url)
 
 const noteSchema = new mongoose.Schema({
   name: String,
-  number: Number,
+  number: String,
 })
 
-const Note = mongoose.model('Note', noteSchema)
+const Person = mongoose.model('Note', noteSchema)
 
-const note = new Note({
+const note = new Person({
   name: process.argv[3],
   number: process.argv[4],
 })
@@ -27,4 +28,9 @@ const note = new Note({
 note.save().then(result => {
   console.log('note saved!')
   mongoose.connection.close()
+})
+
+Person.find({}).then((result)=>{
+    response.json(result);
+      mongoose.connection.close();
 })
