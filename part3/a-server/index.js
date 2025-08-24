@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(cors());
 // app.use(morgan("tiny"));
 app.use(express.static("dist"));//check dist folder and run static files
-
+require("dotenv").config();
 
 // Create a custom token to log request body
 morgan.token("body", (req) => {
@@ -99,5 +99,4 @@ app.post("/api/persons", (request, response) => {
   response.json(newData);
 });
 
-const PORT = process.env.PORT ? process.env.PORT: 3001;
-app.listen(PORT, () => console.log("The server is running", PORT));
+app.listen(process.env.PORT, () => console.log("The server is running", process.env.PORT));
