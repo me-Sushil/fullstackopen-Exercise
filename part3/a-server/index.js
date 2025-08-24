@@ -19,7 +19,6 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 
-
 app.get("/api/persons", (request, response) => {
   Person.find({})
     .then((result) => {
@@ -67,20 +66,25 @@ app.post("/api/persons", (request, response) => {
   if (!data.number) {
     return response.status(400).send({ error: "number is missing" });
   }
+  Person.findOne({ name: data.name }).then((existingPerson) => {
+    if (existingPerson) {
+      return response.status(400).json({ error: "name must be unique" });
+    }
+  });
 
-  const dName = Person.find((p) => p.name === data.name);
-  if (dName) {
-    return response.status(409).send({ error: "name must be unique" });
-  }
-
-  const newData = {
-    // id: String(Math.floor(Math.random() * 1000)),
+  const person = new Person({
     name: data.name,
     number: data.number,
-  };
+  });
 
-  Person.push(newData);
-  response.json(newData);
+  person
+    .save()
+    .then((savedPerson) => {
+      response.json(savedPerson);
+    })
+    .catch((error) => {
+      console.log("Error to post data", error);
+    });
 });
 
 app.listen(process.env.PORT, () =>
