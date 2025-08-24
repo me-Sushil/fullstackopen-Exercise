@@ -5,7 +5,7 @@ const morgan = require("morgan");
 app.use(express.json());
 app.use(cors());
 // app.use(morgan("tiny"));
-app.use(express.static("dist"));//check dist folder and run static files
+app.use(express.static("dist")); //check dist folder and run static files
 require("dotenv").config();
 
 const Person = require("./models/person");
@@ -14,40 +14,45 @@ morgan.token("body", (req) => {
   return req.method === "POST" ? JSON.stringify(req.body) : "";
 });
 
-
 // Use morgan with 'tiny' + custom token
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 
-
-
-
-let persons = [
-  {
-    id: "1",
-    name: "Arto Hellas",
-    number: "040-123456",
-  },
-  {
-    id: "2",
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-  },
-  {
-    id: "3",
-    name: "Sudesh moteh",
-    number: "12-43-234345",
-  },
-  {
-    id: "4",
-    name: "Sushil Bishowkarma",
-    number: "39-23-6423122",
-  },
-];
+// let persons = [
+//   {
+//     id: "1",
+//     name: "Arto Hellas",
+//     number: "040-123456",
+//   },
+//   {
+//     id: "2",
+//     name: "Ada Lovelace",
+//     number: "39-44-5323523",
+//   },
+//   {
+//     id: "3",
+//     name: "Sudesh moteh",
+//     number: "12-43-234345",
+//   },
+//   {
+//     id: "4",
+//     name: "Sushil Bishowkarma",
+//     number: "39-23-6423122",
+//   },
+// ];
 
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Person.find({})
+    .then((result) => {
+      response.json(result);
+    })
+    .catch((error) => {
+      console.error(error.message);
+      response
+        .status(500)
+        .send({ error: "something went wrong with database" });
+    });
 });
 
 app.get("/info", (request, response) => {
@@ -100,4 +105,6 @@ app.post("/api/persons", (request, response) => {
   response.json(newData);
 });
 
-app.listen(process.env.PORT, () => console.log("The server is running", process.env.PORT));
+app.listen(process.env.PORT, () =>
+  console.log("The server is running", process.env.PORT)
+);
