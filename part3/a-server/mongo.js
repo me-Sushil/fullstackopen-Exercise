@@ -22,6 +22,7 @@ const personSchema = new mongoose.Schema({
 const Person = mongoose.model("Person", personSchema);
 
 if (name && number) {
+    
   const person = new Person({
     name,
     number,
