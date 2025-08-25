@@ -11,8 +11,11 @@ const create = (newObj) => {
     .post(url, newObj)
     .then((response) => response.data)
     .catch((error) => {
-        if(error.response)
-        error.response.data
+      if (error.response) {
+        throw error.response.data;
+      } else {
+        throw error({ error: "Network error" });
+      }
     });
 };
 const deleteNote = (id) => {
