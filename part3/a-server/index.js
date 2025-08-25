@@ -41,14 +41,14 @@ app.get("/api/persons", (request, response) => {
 //   );
 // });
 
-// app.get("/api/persons/:id", (request, response) => {
-//   const personId = request.params.id;
-//   const reqData = persons.find((p) => p.id === personId);
-//   if (!reqData) {
-//     response.status(404).json("Data not found");
-//   }
-//   response.json(reqData);
-// });
+app.get("/api/persons/:id", (request, response) => {
+  const personId = request.params.id;
+  Person.findById(personId)
+    .then((person) => {
+      response.json(person);
+    })
+    .catch((err) => response.status(404).json("Data not found", err));
+});
 
 // app.delete("/api/persons/:id", (request, response) => {
 //   const perId = request.params.id;
