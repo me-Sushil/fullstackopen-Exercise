@@ -1,4 +1,33 @@
 
+########
+##GET all persons
+get http://localhost:3001/api/persons
+
+########
+##GET person by id
+get http://localhost:3001/api/persons/68ac0704e1e22258103b1fad
+
+########
+##PUT update person (valid update)
+put http://localhost:3001/api/persons/68ac0704e1e22258103b1fad
+content-type: application/json
+
+{
+    "name": "Akash Updated",
+    "number": "+977 9813481902"
+}
+
+########
+##PUT update person (invalid data, will fail validation)
+put http://localhost:3001/api/persons/68ac0704e1e22258103b1fad
+content-type: application/json
+
+{
+    "name": "",
+    "number": "not-a-phone-number"
+}
+
+#
 
 delete http://localhost:3001/api/persons/2
 #######

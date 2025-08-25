@@ -34,14 +34,16 @@ app.get("/api/persons", (request, response, next) => {
     });
 });
 
-// app.get("/info", (request, response) => {
-//   response.send(
-//     `<div>
-//    <p>Phonebook has info for ${persons.length} people</p>
-//    <p>${new Date().toString()}<p>
-//    </div>`
-//   );
-// });
+app.get("/info", (request, response) => {
+  Person.countDocuments({}).then((count) => {
+    response.send(
+    `<div>
+   <p>Phonebook has info for ${count} people</p>
+   <p>${new Date().toString()}<p>
+   </div>`
+    );
+  });
+});
 
 app.get("/api/persons/:id", (request, response, next) => {
   const personId = request.params.id;
@@ -54,7 +56,6 @@ app.get("/api/persons/:id", (request, response, next) => {
       // response.status(404).json("Data not found", err)
     });
 });
-
 
 app.delete("/api/persons/:id", (request, response, next) => {
   const perId = request.params.id;
@@ -95,7 +96,7 @@ app.post("/api/persons", (request, response, next) => {
 
 app.put("/api/persons/:id", (request, response, next) => {
   const { name, number } = request.body;
-    const personId = request.params.id;
+  const personId = request.params.id;
   Person.findByIdAndUpdate(
     personId,
     { name, number },
@@ -104,10 +105,11 @@ app.put("/api/persons/:id", (request, response, next) => {
       runValidators: true, // run schema validators on the update (e.g., required fields, minlength, etc.)
       context: "query", // ensures validators that rely on "this" work correctly in update operations
     }
-  ).then((updatedPerson) => {
-      if(updatedPerson){
-      response.json(updatedPerson);
-      }else{
+  )
+    .then((updatedPerson) => {
+      if (updatedPerson) {
+        response.json(updatedPerson);
+      } else {
         response.status(404).end();
       }
     })
@@ -122,11 +124,9 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === "CastError") {
     // Invalid ObjectId format (e.g., malformed MongoDB _id)
     return response.status(400).send({ error: "malformatted id" });
-
   } else if (error.name === "ValidationError") {
     // Mongoose schema validation failed (invalid or missing data)
     return response.status(400).json({ error: error.message });
-    
   } else if (error.name === "MongoServerError" && error.code === 11000) {
     // Unique constraint violation (duplicate value for a field marked as unique)
     return response.status(400).json({ error: "Duplicate field value" });
