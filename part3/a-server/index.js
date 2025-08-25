@@ -65,33 +65,30 @@ app.delete("/api/persons/:id", (request, response, next) => {
 });
 
 app.post("/api/persons", (request, response, next) => {
-  const { name, number } = request.body;
-
+  const {name, number} = request.body;
   if (!name || !number) {
-    return response.status(400).json({
-      error: "number or name is missing",
-    });
+    return res.status(400).json({ error: "number or name is missing" });
   }
-  Person.findOne({ name: name }).then((existingPerson) => {
-    if (existingPerson) {
-      return response.status(400).json({ error: "name must be unique" });
-    }
-  });
 
-  const person = new Person({
-    name: name,
-    number: number,
-  });
-
-  person
-    .save()
-    .then((savedPerson) => {
-      response.json(savedPerson);
+  Person.findOne({ name })
+    .then(existing => {
+      if (existing) {
+        return res.status(400).json({ error: "name must be unique" });
+      }
+      const person = new Person({ name, number });
+      return person.save();                     // ← return the promise
     })
-    .catch((error) => {
-      next(error);
-      // console.log("Error to post data", error);
-    });
+    .then(saved => {
+      if (saved) res.status(201).json(saved);   // only respond once
+    })
+    .catch(next);
+    // .then((savedPerson) => {
+    //   response.json(savedPerson);
+    // })
+    // .catch((error) => {
+    //   next(error);
+    //   // console.log("Error to post data", error);
+    // });
 });
 
 app.put("/api/persons/:id", (request, response, next) => {
