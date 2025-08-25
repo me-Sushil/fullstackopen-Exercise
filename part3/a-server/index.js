@@ -50,12 +50,12 @@ app.get("/api/persons/:id", (request, response) => {
     .catch((err) => response.status(404).json("Data not found", err));
 });
 
-// app.delete("/api/persons/:id", (request, response) => {
-//   const perId = request.params.id;
-
-//   persons = persons.filter((p) => p.id !== perId);
-//   response.status(204).end();
-// });
+app.delete("/api/persons/:id", (request, response) => {
+  const perId = request.params.id;
+  Person.findByIdAndDelete(perId)
+    .then((result) => response.status(204).end())
+    .catch((err) => err);
+});
 
 app.post("/api/persons", (request, response) => {
   const data = request.body;
