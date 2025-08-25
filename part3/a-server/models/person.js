@@ -20,7 +20,11 @@ const personSchema = new mongoose.Schema({
     minlength:3,
     required:true,
   },
-  number: String,
+  number: {
+    type:String,
+    match:[/^\d{2,3}-\d{5,}$/, "Invalid phone number format"],
+    required:true,
+  }
 });
 
 personSchema.set("toJSON", {
