@@ -20,16 +20,16 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
       if (confirm) {
         const id = yes.id;
 
-        if (!persons.some((p) => p.name === persons.name)) {
-          setMessage(
-            `Information of ${newName} has already been removed from server`
-          );
-          setTimeout(() => setMessage("message here"), 1500);
-          return;
-        }
+        // if (!persons.some((p) => p.name === persons.name)) {
+        //   setMessage(
+        //     `Information of ${newName} has already been removed from server`
+        //   );
+        //   setTimeout(() => setMessage("message here"), 1500);
+        //   return;
+        // }
 
         const upnum = {
-          ...yes,
+          name: newName,
           number: number,
         };
         NoteServices.update(id, upnum)
