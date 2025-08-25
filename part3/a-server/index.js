@@ -9,6 +9,7 @@ app.use(express.static("dist")); //check dist folder and run static files
 require("dotenv").config();
 
 const Person = require("./models/person");
+
 // Create a custom token to log request body
 morgan.token("body", (req) => {
   return req.method === "POST" ? JSON.stringify(req.body) : "";
@@ -54,6 +55,7 @@ app.get("/api/persons/:id", (request, response, next) => {
     });
 });
 
+
 app.delete("/api/persons/:id", (request, response, next) => {
   const perId = request.params.id;
   Person.findByIdAndDelete(perId)
@@ -62,23 +64,22 @@ app.delete("/api/persons/:id", (request, response, next) => {
 });
 
 app.post("/api/persons", (request, response, next) => {
-  const data = request.body;
+  const { name, number } = request.body;
 
-  // if (!data.name) {
-  //   return response.status(400).send({ error: "name is missing" });
-  // }
-  // if (!data.number) {
-  //   return response.status(400).send({ error: "number is missing" });
-  // }
-  Person.findOne({ name: data.name }).then((existingPerson) => {
+  if (!name || !number) {
+    return res.status(400).json({
+      error: "number or name is missing",
+    });
+  }
+  Person.findOne({ name: name }).then((existingPerson) => {
     if (existingPerson) {
       return response.status(400).json({ error: "name must be unique" });
     }
   });
 
   const person = new Person({
-    name: data.name,
-    number: data.number,
+    name: name,
+    number: number,
   });
 
   person
@@ -92,22 +93,43 @@ app.post("/api/persons", (request, response, next) => {
     });
 });
 
+app.put("/api/persons/:id", (request, response, next) => {
+  const { name, number } = request.body;
+    const personId = request.params.id;
+  Person.findByIdAndUpdate(
+    personId,
+    { name, number },
+    {
+      new: true, // return the updated document instead of the old one
+      runValidators: true, // run schema validators on the update (e.g., required fields, minlength, etc.)
+      context: "query", // ensures validators that rely on "this" work correctly in update operations
+    }
+  ).then((updatedPerson) => {
+      if(updatedPerson){
+      response.json(updatedPerson);
+      }else{
+        response.status(404).end();
+      }
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 const errorHandler = (error, request, response, next) => {
   console.error(error.message);
 
   if (error.name === "CastError") {
     // Invalid ObjectId format (e.g., malformed MongoDB _id)
     return response.status(400).send({ error: "malformatted id" });
-
   } else if (error.name === "ValidationError") {
-  // Mongoose schema validation failed (invalid or missing data)
+    // Mongoose schema validation failed (invalid or missing data)
     return response.status(400).json({ error: error.message });
-    
   } else if (error.name === "MongoServerError" && error.code === 11000) {
-  // Unique constraint violation (duplicate value for a field marked as unique)
+    // Unique constraint violation (duplicate value for a field marked as unique)
     return response.status(400).json({ error: "Duplicate field value" });
   }
- 
+
   next(error);
 };
 
