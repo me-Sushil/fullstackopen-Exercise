@@ -73,13 +73,13 @@ app.post("/api/persons", (request, response, next) => {
   Person.findOne({ name })
     .then(existing => {
       if (existing) {
-        return res.status(400).json({ error: "name must be unique" });
+        return response.status(400).json({ error: "name must be unique" });
       }
       const person = new Person({ name, number });
       return person.save();                     // ← return the promise
     })
     .then(saved => {
-      if (saved) res.status(201).json(saved);   // only respond once
+      if (saved) response.status(201).json(saved);   // only respond once
     })
     .catch(next);
     // .then((savedPerson) => {
