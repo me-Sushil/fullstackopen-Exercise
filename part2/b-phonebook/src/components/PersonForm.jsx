@@ -63,9 +63,11 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
         name: newName.trim(),
         number: number.trim(),
       };
-      NoteServices.create(newObj).then((createRes) =>
-        setPersons(persons.concat(createRes))
-      );
+      NoteServices.create(newObj).then((createRes) =>{
+        setPersons(persons.concat(createRes));
+        setMessage(`${newName} is successfully added`);
+      }
+      ).catch(error=>setMessage(error.error));
       // axios.post("http://localhost:3001/persons", newObj).then((response) => {
       //   setPersons(persons.concat(response.data));
       //   console.log(response.data, "the responce is");
@@ -73,7 +75,6 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
       // setPersons(persons.concat(newObj));
       setNewName("");
       setNumber("");
-      setMessage(`${newName} is successfully added`);
       setTimeout(() => {
         setMessage(`message here`);
       }, 1500);
