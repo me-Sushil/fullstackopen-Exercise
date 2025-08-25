@@ -67,7 +67,7 @@ const PersonForm = ({ persons, setPersons, setMessage }) => {
         setPersons(persons.concat(createRes));
         setMessage(`${newName} is successfully added`);
       }
-      ).catch(error=>setMessage(error.error));
+      ).catch(errorData=>setMessage(errorData.error));
       // axios.post("http://localhost:3001/persons", newObj).then((response) => {
       //   setPersons(persons.concat(response.data));
       //   console.log(response.data, "the responce is");
