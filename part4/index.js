@@ -2,9 +2,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
-const url = process.env.MONGODB_URI;
+
 require("dotenv").config();
 
+
+const MONGODB_URI = process.env.MONGODB_URI;
 app.use(express.json());
 app.use(cors());
 
@@ -20,7 +22,7 @@ const blogSchema = mongoose.Schema({
 
 const Blog = mongoose.model('Blog', blogSchema)
 
-mongoose.connect(url)
+mongoose.connect(MONGODB_URI);
 
 
 app.get('/api/blogs', (request, response) => {
