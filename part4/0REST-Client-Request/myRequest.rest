@@ -1,17 +1,15 @@
 ##GET all persons
 get http://localhost:3001/api/blogs
 
-##GET person by id
-get http://localhost:3001/api/blogs/
 
 #######
 post http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-  "title": "String",
-  "author": "String",
-  "url": "String",
-  "likes": "Number"
+  "title": "file distructure 2",
+  "author": "full stack open 2",
+  "url": " http://localhost:3001/api/blogs/file-distructure2",
+  "likes": "222"
 }
 
