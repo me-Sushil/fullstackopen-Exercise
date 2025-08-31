@@ -11,14 +11,6 @@ app.use(express.json());
 app.use(cors());
 
 
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number,
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
 
 mongoose.connect(config.MONGODB_URI);
 
