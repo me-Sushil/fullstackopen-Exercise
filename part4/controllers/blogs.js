@@ -10,7 +10,8 @@ blogRouter.get("/", (request, response, next) => {
 });
 
 blogRouter.post("/", (request, response, next) => {
-  const blog = new Blog(request.body);
+  const { title, author, url, likes } = request.body;
+  const blog = new Blog({ title, author, url, likes });
 
   blog
     .save()

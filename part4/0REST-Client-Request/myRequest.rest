@@ -7,9 +7,9 @@ post http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-  "title": "file distructure 2",
-  "author": "full stack open 2",
-  "url": " http://localhost:3001/api/blogs/file-distructure2",
-  "likes": "222"
+  "title": "file distructure 3",
+  "author": "full stack open 3",
+  "url": " http://localhost:3001/api/blogs/file-distructure3",
+  "likes": "333"
 }
 
