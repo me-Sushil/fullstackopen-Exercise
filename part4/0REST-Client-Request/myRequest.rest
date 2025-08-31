@@ -1,0 +1,17 @@
+##GET all persons
+get http://localhost:3001/api/blogs
+
+##GET person by id
+get http://localhost:3001/api/blogs/
+
+#######
+post http://localhost:3001/api/blogs
+content-type: application/json
+
+{
+  "title": "String",
+  "author": "String",
+  "url": "String",
+  "likes": "Number"
+}
+
