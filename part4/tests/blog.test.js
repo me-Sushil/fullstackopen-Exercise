@@ -1,10 +1,10 @@
 const { test, describe } = require('node:test')
 const assert = require('node:assert')
-const listHelper = require('../utils/blogTest');
+const blogTest = require('../utils/blogTest');
 
 test('dummy returns one', () => {
   const blogs = []
 
-  const result = listHelper.dummy(blogs)
+  const result = blogTest.dummy(blogs)
   assert.strictEqual(result, 1)
 })
