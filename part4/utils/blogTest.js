@@ -16,8 +16,16 @@ const favoriteBlog =(blogs)=>{
     })
 }
 
+const mostBlogs  =(blogs)=>{
+    if(blogs.length === 0) return null;
+
+    
+
+}
+
 module.exports = {
   dummy,
   totalLikes,
-  favoriteBlog
+  favoriteBlog,
+  mostBlogs 
 }
