@@ -59,4 +59,9 @@ describe("most blogs", ()=>{
         const result = blogTest.mostBlogs([]);
         assert.strictEqual(result, null)
     })
+
+    test("when list has only one blog, that author is returned",()=>{
+        const result = blogTest.mostBlogs([blogs[0]]);
+        assert.deepStrictEqual(result, {author: "Michael Chan", blogs: 1});
+    })
 })
