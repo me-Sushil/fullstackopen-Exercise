@@ -6,5 +6,6 @@ test('dummy returns one', () => {
   const blogs = []
 
   const result = blogTest.dummy(blogs)
+  
   assert.strictEqual(result, 1)
 })
