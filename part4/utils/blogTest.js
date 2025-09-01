@@ -32,11 +32,11 @@ const mostBlogs = (blogs) => {
         topAuthor = author;
         maxBlogs = blogcounterByAuthor[author];
     }
-    return {
+  }
+   return {
       author: topAuthor,
       blogs: maxBlogs,
     };
-  }
 };
 
 module.exports = {
