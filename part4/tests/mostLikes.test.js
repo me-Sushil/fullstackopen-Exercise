@@ -1,9 +1,9 @@
-const {test, describe} = require("node:test");
+const { test, describe } = require("node:test");
 const assert = require("node:assert");
 const blogTest = require("../utils/blogTest");
 
-describe("most likes", ()=>{
-    const blogs = [
+describe("most likes", () => {
+  const blogs = [
     {
       _id: "5a422a851b54a676234d17f7",
       title: "React patterns",
@@ -54,9 +54,13 @@ describe("most likes", ()=>{
     },
   ];
 
-  test("empty list is null", ()=>{
+  test("empty list is null", () => {
     const result = blogTest.mostLikes([]);
-    assert.strictEqual(result,null );
-  })
+    assert.strictEqual(result, null);
+  });
 
-})
+  test("list with only one blogs", () => {
+    const result = blogTest.mostLikes([blogs[0]]);
+    assert.deepStrictEqual(result, { author: "Michael Chan", likes: 7 });
+  });
+});
