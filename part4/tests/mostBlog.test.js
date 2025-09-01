@@ -64,7 +64,7 @@ describe("most blogs", () => {
     assert.deepStrictEqual(result, { author: "Michael Chan", blogs: 1 });
   });
 
-  test("multiple list with author has many blogs", () => {
+  test("multiple blog list with author has many blogs", () => {
     const result = blogTest.mostBlogs(blogs);
     assert.deepStrictEqual(result, { author: "Robert C. Martin", blogs: 3 });
   });
