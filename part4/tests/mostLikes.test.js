@@ -64,7 +64,7 @@ describe("most likes", () => {
     assert.deepStrictEqual(result, { author: "Michael Chan", likes: 7 });
   });
 
-  test("multiple list  list is the author with most total likes ", ()=>{
+  test("multiple list is the author with most total likes ", ()=>{
     const result = blogTest.mostLikes(blogs);
     assert.deepStrictEqual(result, {author:"Edsger W. Dijkstra", likes:17})
   })
