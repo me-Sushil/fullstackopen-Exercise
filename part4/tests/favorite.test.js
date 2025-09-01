@@ -1,4 +1,4 @@
-const {test, describe} = require("node:rest");
+const {test, describe} = require("node:test");
 const assert = require("node:assert");
 const blogTest = require("../utils/blogTest");
 
@@ -54,5 +54,19 @@ describe("favorite blog", ()=>{
   } 
     ]
 
-    
+    test("of empty list is null", ()=>{
+        const result = blogTest.favoriteBlog([]);
+        assert.strictEqual(result, null);
+    })
+
+    test("when list has only one blog", ()=>{
+        const oneBlog = [blogs[0]]
+        const result = blogTest.favoriteBlog(oneBlog);
+        assert.deepStrictEqual(result, blogs[0]);
+    })
+
+    test("of a bigger list is the one with most likes", ()=>{
+        const result = blogTest.favoriteBlog(blogs);
+        assert.deepStrictEqual(result, blogs[2]);
+    })
 })
