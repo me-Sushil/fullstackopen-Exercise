@@ -1,4 +1,4 @@
-const { test, after } = require("node:test");
+const { test, after, describe } = require("node:test");
 const assert = require("node:assert");
 const supertest = require("supertest");
 const mongoose = require("mongoose");
@@ -110,6 +110,25 @@ test("blog without both title and url is not added", async () => {
   const response = await api.get("/api/blogs");
   assert.strictEqual(response.body.length, helper.initialBlogs.length);
 });
+
+describe("delete blog",()=>{
+    test("blog can be deleted by id", async ()=>{
+        
+      const blogsAtStart = await helper.blogsInDb();
+      const blogToDelete = blogsAtStart[0];
+
+      await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+      const blogsAtEnd = await helper.blogsInDb();
+
+      const blogs = blogsAtEnd.map((n) => n.title);
+      assert(!blogs.includes(blogToDelete.title));
+
+      assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1);
+  
+
+    })
+})
 
 
 after(async()=>{
