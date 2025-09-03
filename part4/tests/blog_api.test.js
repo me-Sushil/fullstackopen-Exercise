@@ -5,7 +5,7 @@ const app = require("../app");
 
 const api = supertest(app);
 
-test("blogs are return as json", async () => {
+test.only("blogs are return as json", async () => {
   await api
     .get("/api/blogs")
     .expect(200)
@@ -13,5 +13,5 @@ test("blogs are return as json", async () => {
 });
 
 after(async()=>{
-    await mongoose.connection.close()
+    await mongoose.connection.close();
 })
