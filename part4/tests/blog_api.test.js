@@ -46,6 +46,23 @@ test("A valid blog can be added", async()=>{
 
   assert(title.includes("React grandchild"));
 })
+
+test("blog without title is not added", async () => {
+  const newBlog = {
+    id: "5dw22a851b54a676234d17f7",
+    author: "React ok Chan",
+    url: "https://reactgrandchild.com/",
+    likes: 12
+  };
+
+  await api.post("/api/blogs").send(newBlog).expect(400);
+
+  const response = await api.get("/api/blogs");
+
+  assert.strictEqual(response.body.length, helper.initialBlogs.length);
+});
+
+
 after(async()=>{
     await mongoose.connection.close();
 })

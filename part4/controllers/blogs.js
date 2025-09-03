@@ -12,6 +12,12 @@ blogRouter.get("/", async (request, response, next) => {
 
 blogRouter.post("/", (request, response, next) => {
   const { title, author, url, likes } = request.body;
+
+   if (!title) {
+      return response.status(400).json({
+        error: "content is missing",
+      });
+    }
   const blog = new Blog({ title, author, url, likes });
 
   blog
