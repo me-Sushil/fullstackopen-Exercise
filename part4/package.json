@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development node --watch index.js",
-    "start": "NODE_ENV=production node index.js",
-    "test": "NODE_ENV=test node --test"
+    "dev": "cross-env NODE_ENV=development node --watch index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test node --test"
   },
   "author": "",
   "license": "ISC",
