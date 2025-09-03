@@ -3,7 +3,7 @@ const assert = require("node:assert");
 const supertest = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../app");
-
+const helper = require("./test_helper");
 const api = supertest(app);
 
 test("blogs are return as json", async () => {
@@ -38,6 +38,13 @@ test("A valid blog can be added", async()=>{
     }
 
     await api.post("/api/blogs").send(newBlog).expect(201).expect("Content-Type", /application\/json/)
+    const response = await api.get("/api/blogs");
+
+  const title = response.body.map((b) => b.title);
+
+  assert.strictEqual(response.body.length, helper.initialBlogs.length + 1);
+
+  assert(title.includes("React grandchild"));
 })
 after(async()=>{
     await mongoose.connection.close();
