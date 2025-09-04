@@ -13,3 +13,16 @@ content-type: application/json
   "likes": "333"
 }
 
+###########  user create
+
+post http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "username": "sushil",
+  "name": "Sushil BK",
+  "Password": "sushil"
+}
+
+
+
