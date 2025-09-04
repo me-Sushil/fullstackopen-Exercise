@@ -45,7 +45,7 @@ userRouter.post("/", async (request, response, next) => {
 
 userRouter.get("/", async (request, response, next) => {
   try {
-    const result = await User.find({});
+    const result = await User.find({}).populate("blog");
 
     response.status(200).json(result);
   } catch (error) {

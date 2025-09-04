@@ -4,7 +4,7 @@ const blogRouter = require("express").Router();
 
 blogRouter.get("/", async (request, response, next) => {
   try {
-    const result = await Blog.find({});
+    const result = await Blog.find({}).populate("user");
     response.json(result);
   } catch (error) {
     next(error);
