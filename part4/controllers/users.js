@@ -1,6 +1,9 @@
+const { response } = require("../app");
 const User = require("../models/user");
 const userRouter = require("express").Router();
 const bcrypt = require("bcrypt");
+
+
 
 userRouter.post("/", async (request, response, next) => {
   try {
@@ -23,4 +26,14 @@ userRouter.post("/", async (request, response, next) => {
   }
 });
 
+
+userRouter.get("/", async(request, response, next)=>{
+    try{
+        const result = await User.find({});
+
+        response.status(200).json(result);
+    }catch(error){
+        next(error);
+    }
+})
 module.exports = userRouter;
