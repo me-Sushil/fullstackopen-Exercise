@@ -4,13 +4,14 @@ const bcrypt = require("bcrypt");
 
 userRouter.post("/", async (request, response, next) => {
   try {
-    const { username, password, name } = request.body;
+    const { username, name, password } = request.body;
+    console.log(password, " this is password");
 
-    const saltRound = 10;
-    const passwordHash = await bcrypt.hash(password, saltRound);
+     const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds)
 
     console.log(passwordHash, " password hash");
-    const user = new User({ username, passwordHash, name });
+    const user = new User({ username, name, passwordHash });
 
     const savedUser = await user.save();
 
