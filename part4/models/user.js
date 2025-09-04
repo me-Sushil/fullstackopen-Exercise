@@ -4,8 +4,9 @@ mongoose.set("strictQuery", false);
 
 const userSchema = new mongoose.Schema({
   username: String,
-  passwordHash: String,
   name: String,
+  passwordHash: String,
+  
 });
 
 userSchema.set("toJSON", {
