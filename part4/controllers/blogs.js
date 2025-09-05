@@ -55,19 +55,27 @@ blogRouter.put("/:id", async (request, response, next) => {
   }
 });
 
+const getTokenFrom = request => {
+  const authorization = request.get('authorization')
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '')
+  }
+  return null
+}
+
 blogRouter.post("/", async (request, response, next) => {
   try {
 
-    const authorization = request.get("authorization");
-    console.log(authorization, "authorization");
-
-    const authoArr = authorization && authorization.split(" ");
-    const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
+    // const authorization = request.get("authorization");
+    // console.log(authorization, "authorization");
+    // const authoArr = authorization && authorization.split(" ");
+    
+    const decodedToken = jwt.verify(getTokenFrom(request), config.SEKRET);
 
     if(!decodedToken){
       return response.status(401).json({error:"Unauthorized"});
     }
-    
+
     const user = await User.findById(decodedToken.id);
     console.log(user, " get user");
 
