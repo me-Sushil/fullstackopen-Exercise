@@ -20,11 +20,11 @@ mongoose
     console.log("Error on connection database");
   });
 
+app.use(middleWare.tokenExtractor);
 app.use(middleWare.requestLogger);
 app.use("/api/blogs", blogRouter);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
-app.use(middleWare.tokenExtractor);
 app.use(middleWare.errorhandler);
 app.use(middleWare.unknownEndpoint);
 
