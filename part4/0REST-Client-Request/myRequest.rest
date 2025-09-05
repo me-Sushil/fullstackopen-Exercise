@@ -14,6 +14,13 @@ content-type: application/json
   "userID":"68ba94b121cbe490c4d70bca"
 }
 
+
+###########delete
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlN1c2hpbDEiLCJpZCI6IjY4YmFiOTFjMjVmYjJkMzA3NDdmMjc1YiIsImlhdCI6MTc1NzA3NTUzNn0.fEYc0CgKPseD17pk8VqJstb0mqp_R07YQVOe2GWn8a4
+
+delete http://localhost:3001/api/blogs/68ba95d1aa8f106c226ebc36
+authorization: Bearer {{token}}
+
 ###########  user create
 
 post http://localhost:3001/api/users
