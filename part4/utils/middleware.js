@@ -57,21 +57,24 @@ const tokenExtractor = (request, response, next) => {
 };
 
 const userExtractor = async (request, response, next) => {
+  const token = request.token;
+  if (!token) {
+    request.user = null;
+    return next();
+  }
   try {
-    const token = request.token;
-    if (!token) {
-      return response.status(400).json({ error: "token missing" });
-    }
     const decodedToken = jwt.verify(token, config.SEKRET);
     if (!decodedToken.id) {
-      return response.status(400).json({ error: "invalid token" });
+      request.user = null;
+      return next();
     }
 
-    request.user = await User.findById(decodedToken.id);
-
+    const user = await User.findById(decodedToken.id);
+    request.user = user || null;
     next();
   } catch (error) {
-    return response.status(401).json({ error: error.message });
+    request.user = null;
+    next();
   }
 };
 
