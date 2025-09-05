@@ -19,10 +19,9 @@ mongoose
   .catch((error) => {
     console.log("Error on connection database");
   });
-app.use(middleWare.userExtractor);
 app.use(middleWare.tokenExtractor);
 app.use(middleWare.requestLogger);
-app.use("/api/blogs", blogRouter);
+app.use("/api/blogs", middleWare.userExtractor, blogRouter);
 app.use("/api/users", userRouter);
 app.use("/api/login", loginRouter);
 app.use(middleWare.errorhandler);
