@@ -67,6 +67,7 @@ blogRouter.post("/", async (request, response, next) => {
     if(!decodedToken){
       return response.status(401).json({error:"Unauthorized"});
     }
+    
     const user = await User.findById(decodedToken.id);
     console.log(user, " get user");
 
