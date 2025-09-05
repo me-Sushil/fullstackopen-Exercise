@@ -2,6 +2,7 @@ const loginRouter = require("express").Router();
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const config = require("../utils/config");
 
 loginRouter.post("/", async (request, response, next) => {
   const { username, password } = request.body;
@@ -22,7 +23,7 @@ loginRouter.post("/", async (request, response, next) => {
     id: user.id,
   };
 
-  const token = jwt.sign(userForToken, "the sekret key")
+  const token = jwt.sign(userForToken, config.SEKRET)
   console.log(token);
 
   response.status(200).json({token:token, username:user.username, name:user.name});
