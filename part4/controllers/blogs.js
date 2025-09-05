@@ -3,7 +3,6 @@ const blogRouter = require("express").Router();
 const User = require("../models/user");
 const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
-const { error } = require("../utils/logger");
 
 blogRouter.get("/", async (request, response, next) => {
   try {
