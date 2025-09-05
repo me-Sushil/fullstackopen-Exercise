@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 mongoose.set("strictQuery", false);
 
@@ -7,9 +8,9 @@ const blogSchema = new mongoose.Schema({
   author: String,
   url: { type: String, required: true },
   likes: { type: Number, default: 0 },
-  user: {
+  user:{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref:"User"
   },
 });
 
