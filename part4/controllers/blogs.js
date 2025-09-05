@@ -1,14 +1,16 @@
 const Blog = require("../models/blog");
 const blogRouter = require("express").Router();
 const User = require("../models/user");
-
+const config = require("../utils/config");
+const jwt = require("jsonwebtoken");
+const { error } = require("../utils/logger");
 
 blogRouter.get("/", async (request, response, next) => {
   try {
-    const result = await Blog.find({}).populate("user",{
+    const result = await Blog.find({}).populate("user", {
       username: 1,
       name: 1,
-      id:1
+      id: 1,
     });
     response.json(result);
   } catch (error) {
@@ -53,31 +55,40 @@ blogRouter.put("/:id", async (request, response, next) => {
   }
 });
 
-
-
 blogRouter.post("/", async (request, response, next) => {
   try {
-    const { title, author, url, likes, userID } = request.body;
 
-      const user = await User.findById(userID);
-      console.log(user, " get user");
+    const authorization = request.get("authorization");
+    console.log(authorization, "authorization");
 
-      if (!user) {
+    const authoArr = authorization && authorization.split(" ");
+    const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
+
+    if(!decodedToken){
+      return response.status(401).json({error:"Unauthorized"});
+    }
+    const user = await User.findById(decodedToken.id);
+    console.log(user, " get user");
+
+    if (!user) {
       return response
         .status(400)
         .json({ error: "userId missing or not valid" });
     }
+    const { title, author, url, likes} = request.body;
+
+
     const blog = new Blog({
       title: title,
       author: author,
-      url:url,
-      likes:likes,
+      url: url,
+      likes: likes,
       user: user.id,
     });
 
-     const result = await blog.save();
-     user.blogs = user.blogs.concat(result.id);
-     await user.save();
+    const result = await blog.save();
+    user.blogs = user.blogs.concat(result.id);
+    await user.save();
 
     if (result) {
       response.status(201).json(result);

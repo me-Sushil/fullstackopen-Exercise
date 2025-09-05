@@ -25,5 +25,15 @@ content-type: application/json
   "password": "muskan"
 }
 
+############  login
+
+post http://localhost:3001/api/login
+content-type: application/json
+
+{
+  "username": "muskan",
+  "name": "miskan tamang ",
+  "password": "muskan"
+}
 
 
