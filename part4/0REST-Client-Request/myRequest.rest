@@ -7,10 +7,11 @@ post http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-  "title": "file distructure 3",
-  "author": "full stack open 3",
-  "url": " http://localhost:3001/api/blogs/file-distructure3",
-  "likes": "333"
+  "title": "file 443",
+  "author": "full 3332",
+  "url": " http://localhost:3001/api/blogs/file-distr3uctu3re5",
+  "likes": "331323",
+  "userID":"68ba94b121cbe490c4d70bca"
 }
 
 ###########  user create
@@ -19,9 +20,9 @@ post http://localhost:3001/api/users
 content-type: application/json
 
 {
-  "username": "sushil",
-  "name": "Sushil BK",
-  "Password": "sushil"
+  "username": "muskan",
+  "name": "miskan tamang ",
+  "password": "muskan"
 }
 
 
