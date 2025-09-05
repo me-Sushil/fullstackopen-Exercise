@@ -3,6 +3,7 @@ const blogRouter = require("express").Router();
 const User = require("../models/user");
 const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
+const userExtractor = require("../utils/middleware")
 
 blogRouter.get("/", async (request, response, next) => {
   try {
@@ -20,28 +21,24 @@ blogRouter.get("/", async (request, response, next) => {
 blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
   try {
     const id = request.params.id;
-    const token = request.token;
-    console.log(token, "token from middleware");
-    if (!token) {
-      return response.status(401).json({ error: "token missing" });
-    }
-    const decodedToken = jwt.verify(token, config.SEKRET);
-
-    if (!decodedToken.id) {
-      return response.status(401).json({ error: "token invalid" });
-    }
+    const user = request.user;
+    console.log(user, "user form middleware");
+    
 
     const blog = await Blog.findById(id);
     if (!blog) {
       return response.status(404).json({ error: "blog not found" });
     }
 
-    if (blog.user.toString() !== decodedToken.id.toString()) {
+    if (!blog.user ||blog.user.toString() !== user.id.toString()) {
       return response.status(401).json({
         error: "only the creator can delete this blog",
       });
     }
     await Blog.findByIdAndDelete(id);
+
+    request.user.blogs = request.user.blogs.filter((blog)=> blog.toString() !== id);
+    await request.user.save();
     response.status(204).end();
   } catch (error) {
     next(error);
@@ -83,6 +80,9 @@ blogRouter.post("/", userExtractor, async (request, response, next) => {
     // const authorization = request.get("authorization");
     // console.log(authorization, "authorization");
     // const authoArr = authorization && authorization.split(" ");
+
+    const user = request.user;
+    console.log(user, "user form middleware");
 
     const decodedToken = jwt.verify(request.token, config.SEKRET);
 
