@@ -67,8 +67,6 @@ blogRouter.post("/", async (request, response, next) => {
         .status(400)
         .json({ error: "userId missing or not valid" });
     }
-
-    // Move note creation inside the then block
     const blog = new Blog({
       title: title,
       author: author,
