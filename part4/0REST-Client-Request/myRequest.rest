@@ -7,10 +7,10 @@ post http://localhost:3001/api/blogs
 content-type: application/json
 
 {
-  "title": "file 443",
-  "author": "full 3332",
-  "url": " http://localhost:3001/api/blogs/file-distr3uctu3re5",
-  "likes": "331323",
+  "title": "f333",
+  "author": "full 2132332",
+  "url": " http://local12host:3001/api/blogs/file-distr3uctu3re5",
+  "likes": "33112323",
   "userID":"68ba94b121cbe490c4d70bca"
 }
 
