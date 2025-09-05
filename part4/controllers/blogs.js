@@ -17,7 +17,7 @@ blogRouter.get("/", async (request, response, next) => {
   }
 });
 
-blogRouter.delete("/:id", async (request, response, next) => {
+blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
   try {
     const id = request.params.id;
     const token = request.token;
@@ -78,7 +78,7 @@ blogRouter.put("/:id", async (request, response, next) => {
 //   return null
 // }
 
-blogRouter.post("/", async (request, response, next) => {
+blogRouter.post("/", userExtractor, async (request, response, next) => {
   try {
     // const authorization = request.get("authorization");
     // console.log(authorization, "authorization");
