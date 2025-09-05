@@ -34,20 +34,25 @@ const errorhandler = (error, request, response, next) => {
     return response.status(400).json({error: error.message});
   }else if(error.name === "ReferenceError"){
     return response.status(400).json({error: error.message});
+  }else if(error.name === "JsonWebTokenError"){
+    return response.status(400).json({error:error.message});
   }
 
   next(error);
 };
 
-const tokenExtractor =(request, response, next)=>{
+
+const tokenExtractor = (request, response, next) => {
   const authorization = request.get("authorization");
-  if(authorization && authorization.startsWith("Bearer ")){
+  
+  if (authorization && authorization.startsWith("Bearer ")) {
     request.token = authorization.replace("Bearer ", "");
-  }else{
-      request.token = null;
+  } else {
+    request.token = null;
   }
+  
   next();
-}
+};
 module.exports = {
   requestLogger,
   unknownEndpoint,
