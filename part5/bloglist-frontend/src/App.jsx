@@ -12,10 +12,7 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
-  const LoginForm = () => {
-    
-
-    const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
       e.preventDefault();
       const userData = {
         username,
@@ -30,7 +27,9 @@ const App = () => {
         console.log(error,"login failed error");
       }
     };
-    return (
+
+  const loginForm = () => 
+    (
       <>
         <h2>log in to Application</h2>
         <form onSubmit={handleSubmit}>
@@ -60,10 +59,9 @@ const App = () => {
         </form>
       </>
     );
-  };
+  
 
-  const BlogForm=()=>{
-    return(
+  const blogForm=()=>(
       <div>
         <h2>blogs</h2>
         {blogs.map((blog) => (
@@ -71,12 +69,12 @@ const App = () => {
         ))}
       </div>
     )
-  }
+  
 
   return (
     <>
-    <BlogForm/>
-      <LoginForm />
+     {!user && loginForm()} 
+      {user && blogForm()}
     </>
   );
 };
