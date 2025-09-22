@@ -14,7 +14,7 @@ const App = () => {
     const [password, setPassword] = useState("");
 
     const handleSubmit =(e)=>{
-      
+      e.preventDefault();
 
     }
     return (
