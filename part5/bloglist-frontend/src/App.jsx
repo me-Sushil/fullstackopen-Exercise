@@ -8,6 +8,9 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -41,6 +44,12 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("user");
   };
+
+
+  const createBlog=(e)=>{
+    e.preventDefault();
+    
+  }
 
   const loginForm = () => (
     <>
@@ -84,23 +93,35 @@ const App = () => {
 
       <div>
         <h2>Create new</h2>
-        <form>
+        <form onSubmit={createBlog}>
           <div>
             <label>
               title:
-              <input />
+              <input
+                type="text"
+                value={title}
+                onChange={({ target }) => setTitle(target.value)}
+              />
             </label>
           </div>
           <div>
             <label>
               author:
-              <input />
+              <input
+                type="text"
+                value={author}
+                onChange={({ target }) => setAuthor(target.value)}
+              />
             </label>
           </div>
           <div>
             <label>
               url
-              <input />
+              <input
+                type="text"
+                value={url}
+                onChange={({ target }) => setUrl(target.value)}
+              />
             </label>
           </div>
           <button>create</button>
