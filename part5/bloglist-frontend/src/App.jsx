@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";
+import loginService from "./services/login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -19,7 +20,7 @@ const App = () => {
       password,
     };
     try {
-      const result = await blogService.login(userData);
+      const result = await loginService.login(userData);
       window.localStorage.setItem("token", JSON.stringify(result.token));
       setUser(result);
       setUsername("");
@@ -32,7 +33,7 @@ const App = () => {
   const handleLogout =()=>{
     window.localStorage.removeItem("token");
   }
-  
+
   const loginForm = () => (
     <>
       <h2>log in to Application</h2>
