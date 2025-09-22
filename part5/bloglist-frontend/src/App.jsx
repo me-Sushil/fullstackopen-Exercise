@@ -1,24 +1,65 @@
-import { useState, useEffect } from 'react'
-import Blog from './components/Blog'
-import blogService from './services/blogs'
+import { useState, useEffect } from "react";
+import Blog from "./components/Blog";
+import blogService from "./services/blogs";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([])
+  const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
-  }, [])
+    blogService.getAll().then((blogs) => setBlogs(blogs));
+  }, []);
+
+  const LoginForm = () => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit =(e)=>{
+      
+
+    }
+    return (
+      <>
+        <h2>log in to Application</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>
+              username
+              <input
+                value={username}
+                type="text"
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Enter username"
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              password
+              <input
+                value={password}
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter password"
+              />
+            </label>
+          </div>
+          <button type="submit">login</button>
+        </form>
+      </>
+    );
+  };
 
   return (
-    <div>
-      <h2>blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
-    </div>
-  )
-}
+    <>
+      <div>
+        <h2>blogs</h2>
+        {blogs.map((blog) => (
+          <Blog key={blog.id} blog={blog} />
+        ))}
+      </div>
+      <LoginForm />
+    </>
+  );
+};
 
-export default App
+export default App;
