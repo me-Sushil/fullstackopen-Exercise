@@ -29,6 +29,10 @@ const App = () => {
     }
   };
 
+  const handleLogout =()=>{
+    window.localStorage.removeItem("token");
+  }
+  
   const loginForm = () => (
     <>
       <h2>log in to Application</h2>
@@ -63,7 +67,7 @@ const App = () => {
   const blogForm = () => (
     <div>
       <h2>blogs</h2>
-      <p>{user.name} Logged in</p>
+      <p>{user.name} Logged in <button onClick={handleLogout}>logout</button></p>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
