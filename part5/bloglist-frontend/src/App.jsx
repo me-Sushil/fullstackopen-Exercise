@@ -20,7 +20,7 @@ const App = () => {
     };
     try {
       const result = await blogService.login(userData);
-      localStorage.setItem("token", JSON.stringify(result.token));
+      window.localStorage.setItem("token", JSON.stringify(result.token));
       setUser(result);
       setUsername("");
       setPassword("");
@@ -63,6 +63,7 @@ const App = () => {
   const blogForm = () => (
     <div>
       <h2>blogs</h2>
+      <p>{user.name} Logged in</p>
       {blogs.map((blog) => (
         <Blog key={blog.id} blog={blog} />
       ))}
