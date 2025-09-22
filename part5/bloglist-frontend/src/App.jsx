@@ -4,19 +4,32 @@ import blogService from "./services/blogs";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
+  const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [user, setUser] = useState(null);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
   const LoginForm = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    
 
-    const handleSubmit =(e)=>{
+    const handleSubmit = async (e) => {
       e.preventDefault();
-
-    }
+      const userData = {
+        username,
+        password,
+      };
+      try {
+        const result = await blogService.login(userData);
+        setUser(result);
+        setUsername("");
+        setPassword("");
+      } catch (error) {
+        console.log(error,"login failed error");
+      }
+    };
     return (
       <>
         <h2>log in to Application</h2>
@@ -49,14 +62,20 @@ const App = () => {
     );
   };
 
-  return (
-    <>
+  const BlogForm=()=>{
+    return(
       <div>
         <h2>blogs</h2>
         {blogs.map((blog) => (
           <Blog key={blog.id} blog={blog} />
         ))}
       </div>
+    )
+  }
+
+  return (
+    <>
+    <BlogForm/>
       <LoginForm />
     </>
   );
