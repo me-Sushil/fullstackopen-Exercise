@@ -21,7 +21,7 @@ const App = () => {
     };
     try {
       const result = await loginService.login(userData);
-      window.localStorage.setItem("token", JSON.stringify(result.token));
+      window.localStorage.setItem("user", JSON.stringify(result));
       setUser(result);
       setUsername("");
       setPassword("");
@@ -31,7 +31,7 @@ const App = () => {
   };
 
   const handleLogout =()=>{
-    window.localStorage.removeItem("token");
+    window.localStorage.removeItem("user");
   }
 
   const loginForm = () => (
