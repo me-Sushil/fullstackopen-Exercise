@@ -13,6 +13,14 @@ const App = () => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
   }, []);
 
+  useEffect(()=>{
+    const loginUser = window.localStorage.getItem("user");
+    if(loginUser){
+      const user = JSON.parse(loginUser);
+      setUser(user);
+    }
+  },[])
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const userData = {
