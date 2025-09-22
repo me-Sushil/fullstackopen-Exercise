@@ -20,6 +20,7 @@ const App = () => {
     };
     try {
       const result = await blogService.login(userData);
+      localStorage.setItem("token", JSON.stringify(result.token));
       setUser(result);
       setUsername("");
       setPassword("");
