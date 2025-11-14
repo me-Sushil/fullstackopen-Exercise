@@ -85,6 +85,7 @@ blogRouter.post("/", async (request, response, next) => {
 
     const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
     console.log(decodedToken, "this is decoded token");
+    
     if (!decodedToken) {
       return response.status(401).json({ error: "Unauthorized" });
     }
