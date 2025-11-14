@@ -33,7 +33,7 @@ const App = () => {
     try {
       const result = await loginService.login(userData);
       window.localStorage.setItem("user", JSON.stringify(result));
-      blogService.setToken(result.token);
+       blogService.setToken(result.token);
 
       setUser(result);
       setUsername("");
@@ -57,6 +57,8 @@ const App = () => {
       author,
       url,
     };
+    blogService.setToken(user.token);
+
     const newblog = await blogService.postBlog(newBlog);
     console.log(newblog, "this is new blog");
     setBlogs([...blogs, newblog]);
