@@ -3,7 +3,7 @@ const blogRouter = require("express").Router();
 const User = require("../models/user");
 const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
-const { userExtractor } = require("../utils/middleware");
+const { userExtractor, tokenExtractor } = require("../utils/middleware");
 
 blogRouter.get("/", async (request, response, next) => {
   try {
@@ -24,18 +24,20 @@ blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
     if (!user) {
       return response.status(401).json({ error: "token missing or invalid" });
     }
-    
-     const blog = await Blog.findById(request.params.id);
+
+    const blog = await Blog.findById(request.params.id);
     if (!blog) {
       return response.status(404).json({ error: "blog not found" });
     }
-    
-     if (!blog.user || blog.user.toString() !== user.id.toString()) {
-      return response.status(401).json({ error: "only the creator can delete this blog" });
+
+    if (!blog.user || blog.user.toString() !== user.id.toString()) {
+      return response
+        .status(401)
+        .json({ error: "only the creator can delete this blog" });
     }
 
     await Blog.findByIdAndDelete(id);
-      user.blogs = user.blogs.filter((b) => b.toString() !== blog.id.toString());
+    user.blogs = user.blogs.filter((b) => b.toString() !== blog.id.toString());
     await user.save();
 
     response.status(204).end();
@@ -72,16 +74,30 @@ blogRouter.put("/:id", async (request, response, next) => {
 //     return authorization.replace('Bearer ', '')
 //   }
 //   return null
-// }
+// }tokenExtractor, userExtractor,
 
-blogRouter.post("/", userExtractor, async (request, response, next) => {
+blogRouter.post("/", async (request, response, next) => {
   try {
-    const user = request.user;
-    if (!user) {
-      return response.status(401).json({ error: "token missing or invalid" });
+    const authorization = request.get("authorization");
+    console.log(authorization, "this is token from request");
+
+    const authoArr = authorization && authorization.split(" ");
+
+    const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
+    console.log(decodedToken, "this is decoded token");
+    if (!decodedToken) {
+      return response.status(401).json({ error: "Unauthorized" });
     }
 
     const { title, author, url, likes } = request.body;
+    const user = await User.findById(decodedToken.id);
+    console.log(user, " get by decoded token");
+
+    if (!user) {
+      return response
+        .status(400)
+        .json({ error: "userId missing or not valid" });
+    }
 
     const blog = new Blog({
       title,
