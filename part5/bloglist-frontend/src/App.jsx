@@ -33,6 +33,8 @@ const App = () => {
     try {
       const result = await loginService.login(userData);
       window.localStorage.setItem("user", JSON.stringify(result));
+      blogService.setToken(result.token);
+
       setUser(result);
       setUsername("");
       setPassword("");
@@ -45,11 +47,17 @@ const App = () => {
     window.localStorage.removeItem("user");
   };
 
-
-  const createBlog=(e)=>{
+  const createBlog = async (e) => {
     e.preventDefault();
-    
-  }
+    const newBlog = {
+      title,
+      author,
+      url,
+    };
+    const newblog = await blogService.postBlog(newBlog);
+    console.log(newblog,"this is new blog");
+    setBlogs(...blogs,newblog);
+  };
 
   const loginForm = () => (
     <>
