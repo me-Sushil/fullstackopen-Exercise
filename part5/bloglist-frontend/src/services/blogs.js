@@ -12,6 +12,7 @@ const getAll = async () => {
   return response.data;
 };
 const postBlog = async (newBlog) => {
+  console.log("token: ",token);
   const config = {
     headers: { Authorization: token },
   };
