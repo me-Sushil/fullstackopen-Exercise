@@ -45,6 +45,9 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem("user");
+    blogService.setToken(null);
+    setUser(null);
+
   };
 
   const createBlog = async (e) => {
@@ -55,8 +58,11 @@ const App = () => {
       url,
     };
     const newblog = await blogService.postBlog(newBlog);
-    console.log(newblog,"this is new blog");
-    setBlogs(...blogs,newblog);
+    console.log(newblog, "this is new blog");
+    setBlogs([...blogs, newblog]);
+    setTitle("");
+    setUrl("");
+    setAuthor("");
   };
 
   const loginForm = () => (
