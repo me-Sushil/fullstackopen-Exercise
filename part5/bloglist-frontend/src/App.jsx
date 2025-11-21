@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Blog from "./components/Blog";
+import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-
-const App = () => {
+ const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -102,6 +102,9 @@ const App = () => {
     <div>
       <div>
         <h2>blogs</h2>
+        <div>
+          <Notification/>
+        </div>
         <p>
           {user.name} Logged in <button onClick={handleLogout}>logout</button>
         </p>
