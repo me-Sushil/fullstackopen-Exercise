@@ -3,6 +3,8 @@ import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
+import "./index.css";
+
  const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
@@ -11,6 +13,7 @@ import loginService from "./services/login";
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -40,6 +43,7 @@ import loginService from "./services/login";
       setPassword("");
     } catch (error) {
       console.log(error, "login failed error");
+      setNotification("wrong username or password");
     }
   };
 
@@ -70,6 +74,7 @@ import loginService from "./services/login";
   const loginForm = () => (
     <>
       <h2>log in to Application</h2>
+      <Notification notification={notification}/>
       <form onSubmit={handleSubmit}>
         <div>
           <label>
@@ -103,7 +108,7 @@ import loginService from "./services/login";
       <div>
         <h2>blogs</h2>
         <div>
-          <Notification/>
+          <Notification notification={notification} />
         </div>
         <p>
           {user.name} Logged in <button onClick={handleLogout}>logout</button>
