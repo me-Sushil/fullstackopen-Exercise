@@ -5,7 +5,7 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 import "./index.css";
 
- const App = () => {
+const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +36,7 @@ import "./index.css";
     try {
       const result = await loginService.login(userData);
       window.localStorage.setItem("user", JSON.stringify(result));
-       blogService.setToken(result.token);
+      blogService.setToken(result.token);
 
       setUser(result);
       setUsername("");
@@ -46,9 +46,9 @@ import "./index.css";
       setNotification("wrong username or password");
       setUsername("");
       setPassword("");
-      setTimeout(()=>{
-        setNotification("")
-      },3000);
+      setTimeout(() => {
+        setNotification("");
+      }, 3000);
     }
   };
 
@@ -56,7 +56,6 @@ import "./index.css";
     window.localStorage.removeItem("user");
     blogService.setToken(null);
     setUser(null);
-
   };
 
   const createBlog = async (e) => {
@@ -67,13 +66,26 @@ import "./index.css";
       url,
     };
     blogService.setToken(user.token);
-
-    const newblog = await blogService.postBlog(newBlog);
-    console.log(newblog, "this is new blog");
-    setBlogs([...blogs, newblog]);
-    setTitle("");
-    setUrl("");
-    setAuthor("");
+    try {
+      const newblog = await blogService.postBlog(newBlog);
+      setNotification("Blog Created successfully");
+      setTimeout(() => {
+        setNotification("");
+      }, 3000);
+      console.log(newblog, "this is new blog");
+      setBlogs([...blogs, newblog]);
+      setTitle("");
+      setUrl("");
+      setAuthor("");
+    } catch (error) {
+      setTitle("");
+      setUrl("");
+      setAuthor("");
+      setNotification(error.message || "Failed to create blog");
+      setTimeout(() => {
+        setNotification("");
+      }, 3000);
+    }
   };
 
   const loginForm = () => (
