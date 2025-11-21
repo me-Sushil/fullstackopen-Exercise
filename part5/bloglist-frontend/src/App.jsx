@@ -3,7 +3,6 @@ import Blog from "./components/Blog";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
-import "./index.css";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -13,7 +12,10 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState({
+    message: null,
+    type: null,
+  });
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -43,13 +45,17 @@ const App = () => {
       setPassword("");
     } catch (error) {
       console.log(error, "login failed error");
-      setNotification("wrong username or password");
+      showNotifications("wrong username or password","error");
       setUsername("");
       setPassword("");
-      setTimeout(() => {
-        setNotification("");
-      }, 3000);
+      
     }
+  };
+
+
+   const showNotifications = (message, type = "success") => {
+    setNotification({ message, type });
+    setTimeout(() => setNotification({ message: null, type: null }), 5000);
   };
 
   const handleLogout = () => {
@@ -68,10 +74,8 @@ const App = () => {
     blogService.setToken(user.token);
     try {
       const newblog = await blogService.postBlog(newBlog);
-      setNotification("Blog Created successfully");
-      setTimeout(() => {
-        setNotification("");
-      }, 3000);
+      showNotifications("Blog Created successfully");
+      
       console.log(newblog, "this is new blog");
       setBlogs([...blogs, newblog]);
       setTitle("");
@@ -81,17 +85,18 @@ const App = () => {
       setTitle("");
       setUrl("");
       setAuthor("");
-      setNotification(error.message || "Failed to create blog");
-      setTimeout(() => {
-        setNotification("");
-      }, 3000);
+      showNotifications(error.message || "Failed to create blog", "error");
+      
     }
   };
 
   const loginForm = () => (
     <>
       <h2>log in to Application</h2>
-      <Notification notification={notification} />
+      <Notification
+        notification={notification.message}
+        type={notification.type}
+      />
       <form onSubmit={handleSubmit}>
         <div>
           <label>
@@ -125,7 +130,10 @@ const App = () => {
       <div>
         <h2>blogs</h2>
         <div>
-          <Notification notification={notification} />
+          <Notification
+            notification={notification.message}
+            type={notification.type}
+          />
         </div>
         <p>
           {user.name} Logged in <button onClick={handleLogout}>logout</button>
