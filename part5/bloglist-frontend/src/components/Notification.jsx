@@ -1,9 +1,8 @@
-const Notification=()=>{
+const Notification=({notification})=>{
+    if(notification === null)return null;
     return(
         <>
-        <div>
-            
-        </div>
+        <p className="message">{notification}</p>
         </>
     )
 }
