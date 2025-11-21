@@ -44,6 +44,11 @@ import "./index.css";
     } catch (error) {
       console.log(error, "login failed error");
       setNotification("wrong username or password");
+      setUsername("");
+      setPassword("");
+      setTimeout(()=>{
+        setNotification("")
+      },3000);
     }
   };
 
@@ -74,7 +79,7 @@ import "./index.css";
   const loginForm = () => (
     <>
       <h2>log in to Application</h2>
-      <Notification notification={notification}/>
+      <Notification notification={notification} />
       <form onSubmit={handleSubmit}>
         <div>
           <label>
