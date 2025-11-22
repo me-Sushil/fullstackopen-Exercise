@@ -13,10 +13,11 @@ const BlogForm = ({ submitNewBlog }) => {
       url,
     });
 
-     setTitle("");
-      setUrl("");
-      setAuthor("");
+    setTitle("");
+    setUrl("");
+    setAuthor("");
   };
+
   return (
     <>
       <form onSubmit={createBlog}>
@@ -56,4 +57,4 @@ const BlogForm = ({ submitNewBlog }) => {
   );
 };
 
-export default BlogForm
+export default BlogForm;

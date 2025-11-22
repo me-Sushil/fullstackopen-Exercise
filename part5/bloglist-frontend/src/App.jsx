@@ -4,6 +4,7 @@ import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import BlogForm from "./components/BlogForm";
+import Togglable from "./components/Togglable";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -131,10 +132,9 @@ const App = () => {
           </p>
         </div>
 
-        <div>
-          <h2>Create new</h2>
+        <Togglable buttonLabel="Create New Blog">
           <BlogForm submitNewBlog={submitNewBlog}/>
-        </div>
+        </Togglable>
 
         {blogs.map((blog) => (
           <Blog key={blog.id} blog={blog} />
