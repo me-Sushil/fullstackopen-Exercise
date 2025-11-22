@@ -26,6 +26,8 @@ const App = () => {
     if (loginUser) {
       const user = JSON.parse(loginUser);
       setUser(user);
+            blogService.setToken(user.token);
+
     }
   }, []);
 
@@ -71,7 +73,7 @@ const App = () => {
       author,
       url,
     };
-    blogService.setToken(user.token);
+    // blogService.setToken(user.token);
     try {
       const newblog = await blogService.postBlog(newBlog);
       showNotifications("Blog Created successfully");
