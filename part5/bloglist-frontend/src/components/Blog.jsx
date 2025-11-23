@@ -1,4 +1,4 @@
-const Blog = ({ blog, expanded, toggleExpanded, handleLike }) => {
+const Blog = ({ blog, expanded, toggleExpanded, handleLike, user }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,9 +18,14 @@ const Blog = ({ blog, expanded, toggleExpanded, handleLike }) => {
           <div>{blog.url}</div>
           <div>
             likes {blog.likes}
-            <button onClick={()=>handleLike(blog)}>like</button>
+            <button onClick={() => handleLike(blog)}>like</button>
           </div>
-          <div>{blog.user.name}</div>
+          {user &&
+            (blog.user?.id === user.userId ||
+              blog.user?._id?.toString() === user.userId ||
+              blog.user?.toString() === user.userId) && (
+              <span>{user.name}</span>
+            )}
         </div>
       )}
     </div>
