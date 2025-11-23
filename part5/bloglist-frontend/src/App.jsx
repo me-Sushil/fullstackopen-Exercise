@@ -151,18 +151,21 @@ const App = () => {
           <BlogForm submitNewBlog={submitNewBlog} />
         </Togglable>
 
-        {blogs.map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            expanded={blog.id === showBlogDetails}
-            toggleExpanded={() =>
-              setShowBlogDetails(blog.id === showBlogDetails ? null : blog.id)
-            }
-            handleLike={handleLike}
-            user={user}
-          />
-        ))}
+        {blogs
+          .slice() // make a copy so React state is not mutated
+          .sort((a, b) => b.likes - a.likes) // highest likes first
+          .map((blog) => (
+            <Blog
+              key={blog.id}
+              blog={blog}
+              expanded={blog.id === showBlogDetails}
+              toggleExpanded={() =>
+                setShowBlogDetails(blog.id === showBlogDetails ? null : blog.id)
+              }
+              handleLike={handleLike}
+              user={user}
+            />
+          ))}
       </div>
     );
   };
