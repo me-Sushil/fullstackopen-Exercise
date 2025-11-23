@@ -160,6 +160,7 @@ const App = () => {
               setShowBlogDetails(blog.id === showBlogDetails ? null : blog.id)
             }
             handleLike={handleLike}
+            user={user}
           />
         ))}
       </div>
