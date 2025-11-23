@@ -130,7 +130,7 @@ const App = () => {
           </p>
         </div>
 
-        <Togglable buttonLabel="Create New Blog">
+        <Togglable buttonLabel="create new blog">
           <BlogForm submitNewBlog={submitNewBlog} />
         </Togglable>
 
