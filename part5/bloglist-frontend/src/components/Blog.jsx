@@ -1,4 +1,4 @@
-const Blog = ({ blog, expanded, toggleExpanded }) => {
+const Blog = ({ blog, expanded, toggleExpanded, handleLike }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,7 +18,7 @@ const Blog = ({ blog, expanded, toggleExpanded }) => {
           <div>{blog.url}</div>
           <div>
             likes {blog.likes}
-            <button>like</button>
+            <button onClick={()=>handleLike(blog)}>like</button>
           </div>
           <div>{blog.user.name}</div>
         </div>
