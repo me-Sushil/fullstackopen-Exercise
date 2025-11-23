@@ -11,6 +11,7 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+  const [showBlogDetails, setShowBlogDetails] = useState(null);
 
   const [notification, setNotification] = useState({
     message: null,
@@ -64,7 +65,6 @@ const App = () => {
   };
 
   const submitNewBlog = async (blogObject) => {
-    
     // blogService.setToken(user.token);
     try {
       const newblog = await blogService.postBlog(blogObject);
@@ -72,9 +72,7 @@ const App = () => {
 
       console.log(newblog, "this is new blog");
       setBlogs([...blogs, newblog]);
-     
     } catch (error) {
-      
       showNotifications(error.message || "Failed to create blog", "error");
     }
   };
@@ -133,11 +131,18 @@ const App = () => {
         </div>
 
         <Togglable buttonLabel="Create New Blog">
-          <BlogForm submitNewBlog={submitNewBlog}/>
+          <BlogForm submitNewBlog={submitNewBlog} />
         </Togglable>
 
         {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
+          <Blog
+            key={blog.id}
+            blog={blog}
+            expanded={blog.id === showBlogDetails}
+            toggleExpanded={() =>
+              setShowBlogDetails(blog.id === showBlogDetails ? null : blog.id)
+            }
+          />
         ))}
       </div>
     );

@@ -1,4 +1,4 @@
-const Blog = ({ blog }) => {
+const Blog = ({ blog, expanded, toggleExpanded }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -9,17 +9,20 @@ const Blog = ({ blog }) => {
   return (
     <div style={blogStyle}>
       <div>
-        {blog.title} {blog.author} <button>view</button>
+        <span>{blog.title}</span>
+        <span>{blog.author}</span>{" "}
+        <button onClick={toggleExpanded}>{expanded ? "hide" : "show"}</button>
       </div>
-      <div>
-        {blog.url}
-      </div>
-      <div>
-       likes {blog.likes}<button>like</button>
-      </div>
-      <div>
-        {blog.user.name}
-      </div>
+      {expanded && (
+        <div>
+          <div>{blog.url}</div>
+          <div>
+            likes {blog.likes}
+            <button>like</button>
+          </div>
+          <div>{blog.user.name}</div>
+        </div>
+      )}
     </div>
   );
 };
