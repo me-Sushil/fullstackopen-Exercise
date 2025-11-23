@@ -114,6 +114,23 @@ const App = () => {
     );
   };
 
+  const handleLike = async (blog) => {
+    const blogData = {
+      title: blog.title,
+      author: blog.author,
+      url: blog.url,
+      likes: blog.likes + 1,
+    };
+    try {
+      const updateBlog = await blogService.updateBlog(blog.id, blogData);
+      setBlogs(blogs.map((blg) => (blg.id === blog.id ? updateBlog : blg)));
+      setShowBlogDetails(blog.id);
+    } catch (error) {
+      console.log(error, "update failed error");
+      showNotifications("Error on update blog", "error");
+    }
+  };
+
   const blogForm = () => {
     return (
       <div>
@@ -142,6 +159,7 @@ const App = () => {
             toggleExpanded={() =>
               setShowBlogDetails(blog.id === showBlogDetails ? null : blog.id)
             }
+            handleLike={handleLike}
           />
         ))}
       </div>
