@@ -131,6 +131,17 @@ const App = () => {
     }
   };
 
+  const handleDelete = async (blogId) => {
+    try {
+      const response = await blogService.deleteBlog(blogId);
+      setBlogs(response);
+    } catch (error) {
+      console.log(error, "delete failed error");
+
+      showNotifications("Error on delete blog", "error");
+    }
+  };
+
   const blogForm = () => {
     return (
       <div>
@@ -161,6 +172,7 @@ const App = () => {
             }
             handleLike={handleLike}
             user={user}
+            handleDelete={handleDelete}
           />
         ))}
       </div>
