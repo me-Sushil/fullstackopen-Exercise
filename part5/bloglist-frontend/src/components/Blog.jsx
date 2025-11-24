@@ -31,10 +31,10 @@ const Blog = ({
             (blog.user?.id === user.userId ||
               blog.user?._id?.toString() === user.userId ||
               blog.user?.toString() === user.userId) && (
-              <span>{user.name}</span>
-            )}
+            <span>{user.name}</span>
+          )}
           <div>
-            <button onClick={()=>handleDelete(blog.id)} style={{ backgroundColor: "blue" }}>
+            <button onClick={() => handleDelete(blog.id)} style={{ backgroundColor: "blue" }}>
               remove
             </button>
           </div>

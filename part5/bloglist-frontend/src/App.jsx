@@ -135,11 +135,11 @@ const App = () => {
     const deleteblog = blogs.find((b) => b.id === blogId);
     if (!window.confirm(`Delete ${deleteblog.title} by ${deleteblog.author}`))
       return;
-    
+
     try {
       await blogService.deleteBlog(blogId);
       setBlogs(blogs.filter((b) => b.id !== blogId));
-      showNotifications(`successfully Deleted`);
+      showNotifications("successfully Deleted");
     } catch (error) {
       console.log(error, "delete failed error");
 
