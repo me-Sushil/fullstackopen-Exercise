@@ -1,4 +1,11 @@
-const Blog = ({ blog, expanded, toggleExpanded, handleLike, user }) => {
+const Blog = ({
+  blog,
+  expanded,
+  toggleExpanded,
+  handleLike,
+  user,
+  handleDelete,
+}) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -26,6 +33,11 @@ const Blog = ({ blog, expanded, toggleExpanded, handleLike, user }) => {
               blog.user?.toString() === user.userId) && (
               <span>{user.name}</span>
             )}
+          <div>
+            <button onClick={()=>handleDelete(blog.id)} style={{ backgroundColor: "blue" }}>
+              remove
+            </button>
+          </div>
         </div>
       )}
     </div>

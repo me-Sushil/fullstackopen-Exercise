@@ -131,6 +131,22 @@ const App = () => {
     }
   };
 
+  const handleDelete = async (blogId) => {
+    const deleteblog = blogs.find((b) => b.id === blogId);
+    if (!window.confirm(`Delete ${deleteblog.title} by ${deleteblog.author}`))
+      return;
+    
+    try {
+      await blogService.deleteBlog(blogId);
+      setBlogs(blogs.filter((b) => b.id !== blogId));
+      showNotifications(`successfully Deleted`);
+    } catch (error) {
+      console.log(error, "delete failed error");
+
+      showNotifications("Error on delete blog", "error");
+    }
+  };
+
   const blogForm = () => {
     return (
       <div>
@@ -161,6 +177,7 @@ const App = () => {
             }
             handleLike={handleLike}
             user={user}
+            handleDelete={handleDelete}
           />
         ))}
       </div>
