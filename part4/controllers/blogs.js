@@ -18,33 +18,41 @@ blogRouter.get("/", async (request, response, next) => {
   }
 });
 
-blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
-  try {
-    const user = request.user;
-    if (!user) {
-      return response.status(401).json({ error: "token missing or invalid" });
+blogRouter.delete(
+  "/:id",
+  tokenExtractor,
+  userExtractor,
+  async (request, response, next) => {
+    try {
+      const user = request.user;
+      if (!user) {
+        return response.status(401).json({ error: "token missing or invalid" });
+      }
+
+      const blog = await Blog.findById(request.params.id);
+      if (!blog) {
+        return response.status(404).json({ error: "blog not found" });
+      }
+
+      // Check if the logged-in user is the creator of the blog
+      if (blog.user.toString() !== user.id.toString()) {
+        return response
+          .status(401)
+          .json({ error: "only the creator can delete this blog" });
+      }
+
+      // Delete the blog
+      await Blog.findByIdAndDelete(request.params.id);
+      user.blogs = user.blogs.filter(
+        (b) => b.toString() !== blog.id.toString()
+      );
+      await user.save();
+      response.status(204).end();
+    } catch (error) {
+      next(error);
     }
-
-    const blog = await Blog.findById(request.params.id);
-    if (!blog) {
-      return response.status(404).json({ error: "blog not found" });
-    }
-
-    if (!blog.user || blog.user.toString() !== user.id.toString()) {
-      return response
-        .status(401)
-        .json({ error: "only the creator can delete this blog" });
-    }
-
-    await Blog.findByIdAndDelete(id);
-    user.blogs = user.blogs.filter((b) => b.toString() !== blog.id.toString());
-    await user.save();
-
-    response.status(204).end();
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 blogRouter.put("/:id", async (request, response, next) => {
   try {
@@ -85,7 +93,7 @@ blogRouter.post("/", async (request, response, next) => {
 
     const decodedToken = jwt.verify(authoArr[1], config.SEKRET);
     console.log(decodedToken, "this is decoded token");
-    
+
     if (!decodedToken) {
       return response.status(401).json({ error: "Unauthorized" });
     }
