@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Blog from "../components/Blog";
+import { expect } from "vitest";
 
 test("render blog without url and likes", () => {
   const blog = {
@@ -57,4 +58,31 @@ test("URL and likes are displayed when the show button is clicked", async () => 
   // Now URL and likes should be visible
   expect(screen.getByText("https://javascript.info")).toBeDefined();
   expect(screen.getByText("likes 5")).toBeDefined();
+});
+
+test("like button is clicked twice, event handler is called twice", async () => {
+  const blog = {
+    title: "this is javascript blog",
+    author: "JavaScript",
+    url: "https://javascript.info",
+    likes: 5,
+  };
+  const mockHandler = vi.fn();
+  const mockToggle = vi.fn();
+
+  render(
+    <Blog
+      blog={blog}
+      expanded={true}
+      toggleExpanded={mockToggle}
+      handleLike={mockHandler}
+    />
+  );
+  const user = userEvent.setup();
+  const likeButton = screen.getByText("like");
+
+  await user.click(likeButton);
+  await user.click(likeButton);
+
+  expect(mockHandler).toHaveBeenCalledTimes(2);
 });
