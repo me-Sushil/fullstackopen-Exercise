@@ -132,6 +132,10 @@ const App = () => {
   };
 
   const handleDelete = async (blogId) => {
+    const deleteblog = blogs.find((b) => b.id === blogId);
+    if (!window.confirm(`Delete ${deleteblog.title} by ${deleteblog.author}`))
+      return;
+    
     try {
       await blogService.deleteBlog(blogId);
       setBlogs(blogs.filter((b) => b.id !== blogId));
