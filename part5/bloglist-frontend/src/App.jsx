@@ -133,8 +133,9 @@ const App = () => {
 
   const handleDelete = async (blogId) => {
     try {
-      const response = await blogService.deleteBlog(blogId);
-      setBlogs(response);
+      await blogService.deleteBlog(blogId);
+      setBlogs(blogs.filter((b) => b.id !== blogId));
+      showNotifications(`successfully Deleted`);
     } catch (error) {
       console.log(error, "delete failed error");
 
