@@ -33,9 +33,11 @@ const updateBlog = async (id, updateData) => {
   }
 };
 const deleteBlog = async (id) => {
+   const user = {
+    headers: { Authorization: token },
+  };
   try {
-    const response = await axios.delete(`${baseUrl}/${id}`);
-    return response.data;
+     await axios.delete(`${baseUrl}/${id}`,user);
   } catch (error) {
     throw new Error(error?.response?.data?.error);
   }
