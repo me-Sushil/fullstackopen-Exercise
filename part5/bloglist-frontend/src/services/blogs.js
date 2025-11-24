@@ -32,5 +32,13 @@ const updateBlog = async (id, updateData) => {
     throw new Error(error?.response?.data?.error);
   }
 };
+const deleteBlog = async (id) => {
+  try {
+    const response = await axios.delete(`${baseUrl}/${id}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error?.response?.data?.error);
+  }
+};
 
-export default { getAll, setToken, postBlog, updateBlog };
+export default { getAll, setToken, postBlog, updateBlog, deleteBlog };
