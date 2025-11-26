@@ -20,7 +20,7 @@ describe("Blog app", () => {
     await expect(page.getByLabel("password")).toBeVisible();
     await expect(page.getByRole("button", { name: "login" })).toBeVisible();
   });
-  
+
   describe("Login", () => {
     test("login succeeds with correct credentials", async ({ page }) => {
       await page.getByLabel("username").fill("sushil");
@@ -28,6 +28,15 @@ describe("Blog app", () => {
       await page.getByRole("button", { name: "login" }).click();
 
       await expect(page.getByText("Sushil Bishow Logged in")).toBeVisible();
+    });
+    test("login fails with wrong credentials", async ({ page }) => {
+      await page.getByLabel("username").fill("sushil");
+      await page.getByLabel("password").fill("123444");
+      await page.getByRole("button", { name: "login" }).click();
+
+      await expect(
+        page.getByText("wrong username or password")
+      ).toBeVisible();
     });
   });
 });
