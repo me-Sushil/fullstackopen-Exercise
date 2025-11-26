@@ -4,11 +4,20 @@ const { createBlog, loginWith } = require("./helper");
 describe("Blog app", () => {
   beforeEach(async ({ page, request }) => {
     await request.post("/api/testing/reset");
+    //create one user
     await request.post("/api/users", {
       data: {
         name: "Sushil Bishow",
         username: "sushil",
         password: "sushil",
+      },
+    });
+    // Create second user
+    await request.post("/api/users", {
+      data: {
+        name: "Another User",
+        username: "anotheruser",
+        password: "password",
       },
     });
 
@@ -70,6 +79,45 @@ describe("Blog app", () => {
         // Verify the blog is no longer visible
         await expect(page.getByText("this is vlog")).not.toBeVisible();
       });
+    });
+
+    test("only the user who added the blog sees the delete button", async ({
+      page,
+    }) => {
+      await loginWith(page, "sushil", "sushil");
+
+      await createBlog(
+        page,
+        "Blog by first user",
+        "First Author",
+        "http://first.com"
+      );
+
+      await expect(
+        page.getByText("Blog by first user")
+      ).toBeVisible();
+
+      await page.getByRole("button", { name: "show" }).click();
+      await expect(page.getByRole("button", { name: "remove" })).toBeVisible();
+      await page.getByRole("button", { name: "logout" }).click();
+
+
+      // Second user logs in
+      await loginWith(page, "anotheruser", "password");
+      await expect(
+        page.getByText("Blog by first user")
+      ).toBeVisible();
+
+      
+      // 🔑 Force reload to fetch blogs for new user
+        await page.reload();
+
+      await page.getByRole("button", { name: "show" }).click();
+
+      // Second user should NOT see the remove button
+      await expect(
+        page.getByRole("button", { name: "remove" })
+      ).not.toBeVisible();
     });
   });
 });
