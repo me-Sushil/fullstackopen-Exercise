@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --watch index.js",
     "start": "cross-env NODE_ENV=production node index.js",
-    "test": "cross-env NODE_ENV=test node --test"
+    "test": "cross-env NODE_ENV=test node --test",
+    "start:test": "cross-env NODE_ENV=test node --watch index.js"
   },
   "author": "",
   "license": "ISC",
