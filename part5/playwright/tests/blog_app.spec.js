@@ -52,6 +52,24 @@ describe("Blog app", () => {
         await page.getByRole("button", { name: "like" }).click();
         await expect(page.getByText("likes 1")).toBeVisible();
       });
+      test(" blog can deleted", async ({ page }) => {
+        await createBlog(page, "this is vlog", "sushil", "http://vlog.com");
+        await expect(page.getByText("this is vlog")).toBeVisible();
+
+        await page.getByRole("button", { name: "show" }).click();
+
+        page.on("dialog", async (dialog) => {
+          expect(dialog.type()).toBe("confirm");
+          expect(dialog.message()).toContain("Delete this is vlog by sushil");
+          await dialog.accept();
+        });
+
+        // Click the delete button
+        await page.getByRole("button", { name: "remove" }).click();
+
+        // Verify the blog is no longer visible
+        await expect(page.getByText("this is vlog")).not.toBeVisible();
+      });
     });
   });
 });
