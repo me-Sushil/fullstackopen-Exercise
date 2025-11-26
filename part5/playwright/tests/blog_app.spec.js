@@ -306,8 +306,7 @@ describe("Blog app", () => {
       await expect(page.getByText("Third blog")).toBeVisible();
       await page.waitForTimeout(400);
 
-      // ======== LIKE THE FIRST BLOG TWICE ========
-      // Use filter method instead of locator(..)
+      //  LIKE THE FIRST BLOG TWICE 
       const firstBlogText = page.getByText("First blog");
       const firstBlogContainer = firstBlogText
         .locator("xpath=ancestor::div[@style]")
@@ -329,7 +328,7 @@ describe("Blog app", () => {
       await firstBlogContainer.getByRole("button", { name: "hide" }).click();
       await page.waitForTimeout(400);
 
-      // ======== LIKE THE SECOND BLOG ONCE ========
+      //  LIKE THE SECOND BLOG ONCE 
       const secondBlogText = page.getByText("Second blog");
       const secondBlogContainer = secondBlogText
         .locator("xpath=ancestor::div[@style]")
@@ -347,11 +346,11 @@ describe("Blog app", () => {
       await secondBlogContainer.getByRole("button", { name: "hide" }).click();
       await page.waitForTimeout(400);
 
-      // ======== THIRD BLOG HAS 0 LIKES (NO ACTION) ========
+      //  THIRD BLOG HAS 0 LIKES (NO ACTION) 
       // Wait before reload
       await page.waitForTimeout(500);
 
-      // ======== RELOAD PAGE ========
+      //  RELOAD PAGE 
       await page.reload();
       await page.waitForTimeout(500);
 
@@ -361,7 +360,7 @@ describe("Blog app", () => {
       await expect(page.getByText("Third blog")).toBeVisible();
       await page.waitForTimeout(500);
 
-      // ======== GET ALL BLOG CONTAINERS (ORDERED) ========
+      //  GET ALL BLOG CONTAINERS (ORDERED) 
       // Get all divs that contain blog titles
       const allBlogContainers = await page
         .locator("div[style*='border']")
@@ -373,7 +372,7 @@ describe("Blog app", () => {
       const secondContainer = allBlogContainers[1];
       const thirdContainer = allBlogContainers[2];
 
-      // ======== VERIFY TITLES IN CORRECT ORDER ========
+      //  VERIFY TITLES IN CORRECT ORDER 
       const firstTitle = await firstContainer
         .locator("span")
         .first()
@@ -391,7 +390,7 @@ describe("Blog app", () => {
       expect(secondTitle.trim()).toBe("Second blog"); // 1 like - should be second
       expect(thirdTitle.trim()).toBe("Third blog"); // 0 likes - should be third
 
-      // ======== VERIFY LIKES COUNTS ========
+      //  VERIFY LIKES COUNTS 
       // Expand first blog and verify 2 likes
       await firstContainer.getByRole("button", { name: "show" }).click();
       await page.waitForTimeout(500);
