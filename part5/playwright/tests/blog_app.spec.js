@@ -348,7 +348,6 @@ describe("Blog app", () => {
       await page.waitForTimeout(400);
 
       // ======== THIRD BLOG HAS 0 LIKES (NO ACTION) ========
-
       // Wait before reload
       await page.waitForTimeout(500);
 
