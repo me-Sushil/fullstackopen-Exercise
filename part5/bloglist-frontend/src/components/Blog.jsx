@@ -13,6 +13,15 @@ const Blog = ({
     borderWidth: 1,
     marginBottom: 5,
   };
+
+  // Check if current user owns this blog
+  const isOwner =
+    user &&
+    blog.user &&
+    (blog.user.id === user.userId ||
+      blog.user._id === user.userId ||
+      blog.user === user.userId);
+
   return (
     <div style={blogStyle}>
       <div>
@@ -27,17 +36,16 @@ const Blog = ({
             likes {blog.likes}
             <button onClick={() => handleLike(blog)}>like</button>
           </div>
-          {user &&
-            (blog.user?.id === user.userId ||
-              blog.user?._id?.toString() === user.userId ||
-              blog.user?.toString() === user.userId) && (
-            <span>{user.name}</span>
+          {isOwner && (
+            <div>
+              <button
+                onClick={() => handleDelete(blog.id)}
+                style={{ backgroundColor: "blue" }}
+              >
+                remove
+              </button>
+            </div>
           )}
-          <div>
-            <button onClick={() => handleDelete(blog.id)} style={{ backgroundColor: "blue" }}>
-              remove
-            </button>
-          </div>
         </div>
       )}
     </div>
