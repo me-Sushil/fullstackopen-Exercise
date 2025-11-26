@@ -1,9 +1,10 @@
 const { test, expect, beforeEach, describe } = require("@playwright/test");
+const { createBlog, loginWith } = require("./helper");
 
 describe("Blog app", () => {
   beforeEach(async ({ page, request }) => {
-    await request.post("http://localhost:3001/api/testing/reset");
-    await request.post("http://localhost:3001/api/users", {
+    await request.post("/api/testing/reset");
+    await request.post("/api/users", {
       data: {
         name: "Sushil Bishow",
         username: "sushil",
@@ -11,7 +12,7 @@ describe("Blog app", () => {
       },
     });
 
-    await page.goto("http://localhost:5173");
+    await page.goto("/");
   });
 
   test("Login form is shown", async ({ page }) => {
@@ -23,45 +24,29 @@ describe("Blog app", () => {
 
   describe("Login", () => {
     test("login succeeds with correct credentials", async ({ page }) => {
-      await page.getByLabel("username").fill("sushil");
-      await page.getByLabel("password").fill("sushil");
-      await page.getByRole("button", { name: "login" }).click();
+      await loginWith(page, "sushil", "sushil");
 
       await expect(page.getByText("Sushil Bishow Logged in")).toBeVisible();
     });
+
     test("login fails with wrong credentials", async ({ page }) => {
-      await page.getByLabel("username").fill("sushil");
-      await page.getByLabel("password").fill("123444");
-      await page.getByRole("button", { name: "login" }).click();
+      await loginWith(page, "sushil", "12dscde");
 
       await expect(page.getByText("wrong username or password")).toBeVisible();
     });
 
     describe("when loggen in", () => {
       beforeEach(async ({ page }) => {
-        await page.getByLabel("username").fill("sushil");
-        await page.getByLabel("password").fill("sushil");
-        await page.getByRole("button", { name: "login" }).click();
+        await loginWith(page, "sushil", "sushil");
       });
       test("a new blog can be created", async ({ page }) => {
-        await page.getByRole("button", { name: "create new blog" }).click();
-        await page.getByLabel("title").fill("this is vlog");
-        await page.getByLabel("author").fill("sushil");
-        await page.getByLabel("url").fill("http://vlog.com");
-        await page.getByRole("button", { name: "create" }).click();
+        await createBlog(page, "this is vlog", "sushil", "http://vlog.com");
 
         await expect(page.getByText("this is vlog")).toBeVisible();
       });
       test("the blog can be liked", async ({ page }) => {
-         await page.getByLabel("username").fill("sushil");
-        await page.getByLabel("password").fill("sushil");
-        await page.getByRole("button", { name: "login" }).click();
-
-         await page.getByRole("button", { name: "create new blog" }).click();
-        await page.getByLabel("title").fill("this is vlog");
-        await page.getByLabel("author").fill("sushil");
-        await page.getByLabel("url").fill("http://vlog.com");
-        await page.getByRole("button", { name: "create" }).click();
+        await loginWith(page, "sushil", "sushil");
+        await createBlog(page, "this is vlog", "sushil", "http://vlog.com");
 
         await page.getByRole("button", { name: "show" }).click();
         await page.getByRole("button", { name: "like" }).click();
