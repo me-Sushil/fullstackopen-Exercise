@@ -56,4 +56,5 @@ export const createAnecdotes = (content) => {
     },
   };
 };
+
 export default reducer;
