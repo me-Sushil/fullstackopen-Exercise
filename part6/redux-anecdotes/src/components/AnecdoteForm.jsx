@@ -10,7 +10,7 @@ const AnecdoteForm = () => {
     event.target.anecdotes.value = "";
     dispatch(createAnecdotes(content));
   };
-  
+
   return (
     <>
       <form onSubmit={addAnecdotes}>
