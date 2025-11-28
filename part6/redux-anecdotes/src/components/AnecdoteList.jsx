@@ -11,6 +11,8 @@ const AnecdoteList = () => {
     );
   });
   const dispatch = useDispatch();
+
+  
   return (
     <>
       {[...anecdotes]
