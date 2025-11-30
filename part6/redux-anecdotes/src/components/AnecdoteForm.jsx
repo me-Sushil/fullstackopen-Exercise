@@ -14,10 +14,12 @@ const AnecdoteForm = () => {
 
     // postAnecdotes(content).then((data) => dispatch(allAnecdotes(data)));
 
-    dispatch(setNotification(`${content} Created`));
-    setTimeout(() => {
-      dispatch(setNotification(""));
-    }, 5000);
+    // dispatch(setNotification(`${content} Created`));
+    // setTimeout(() => {
+    //   dispatch(setNotification(""));
+    // }, 5000);
+
+    dispatch(setNotification(`${content} Created`, 5));
   };
 
   return (
