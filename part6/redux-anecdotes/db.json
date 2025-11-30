@@ -11,19 +11,19 @@
       "id": "2"
     },
     {
-      "id": "51d2",
       "content": "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
-      "votes": 2
+      "votes": 3,
+      "id": "51d2"
     },
     {
-      "id": "2ea8",
       "content": "Premature optimization is the root of all evil.",
-      "votes": 3
+      "votes": 4,
+      "id": "2ea8"
     },
     {
-      "id": "15c5",
       "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
-      "votes": 2
+      "votes": 3,
+      "id": "15c5"
     },
     {
       "id": "cab5",
@@ -39,6 +39,11 @@
       "content": "thi is  rt",
       "votes": 11,
       "id": "5337"
+    },
+    {
+      "id": "5508",
+      "content": "this is not about notification, this is about thunk ",
+      "votes": 0
     }
   ]
 }
