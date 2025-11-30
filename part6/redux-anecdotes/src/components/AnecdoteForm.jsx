@@ -1,8 +1,8 @@
-import { allAnecdotes } from "../reducers/anecdoteReducer";
+// import { allAnecdotes } from "../reducers/anecdoteReducer";
 import { setNotification } from "../reducers/notificationReducer";
 import { useDispatch } from "react-redux";
-import { postAnecdotes } from "../services/anecdote";
-
+// import { postAnecdotes } from "../services/anecdote";
+import { createAnecdotesWithThunk } from "../reducers/anecdoteReducer";
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
 
@@ -10,7 +10,9 @@ const AnecdoteForm = () => {
     event.preventDefault();
     const content = event.target.anecdotes.value;
     event.target.anecdotes.value = "";
-    postAnecdotes(content).then((data) => dispatch(allAnecdotes(data)));
+    dispatch(createAnecdotesWithThunk(content));
+
+    // postAnecdotes(content).then((data) => dispatch(allAnecdotes(data)));
 
     dispatch(setNotification(`${content} Created`));
     setTimeout(() => {
