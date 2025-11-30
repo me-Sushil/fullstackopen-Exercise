@@ -4,11 +4,25 @@ const notificationSlice = createSlice({
   name: "notification",
   initialState: "",
   reducers: {
-    setNotification(state, action) {
+    showNotification(state, action) {
       return action.payload;
+    },
+    clearNotification() {
+      return "";
     },
   },
 });
 
-export const { setNotification } = notificationSlice.actions;
+export const { showNotification, clearNotification } = notificationSlice.actions;
+
+// Thunk action creator
+export const setNotification = (message, durationInSeconds) => {
+  return async (dispatch) => {
+    dispatch(showNotification(message));
+    setTimeout(() => {
+      dispatch(clearNotification());
+    }, durationInSeconds * 1000);
+  };
+};
+
 export default notificationSlice.reducer;
