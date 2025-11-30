@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAll } from "../services/anecdote";
-
+import { postAnecdotes } from "../services/anecdote";
 // const anecdotesAtStart = [
 //   "If it hurts, do it more often",
 //   "Adding manpower to a late software project makes it later!",
@@ -59,6 +59,15 @@ export const getAndAddAllAnecdotes = () => {
   };
   return getAnecdotesFromAxiosAndDispatch;
 };
+
+export const createAnecdotesWithThunk = (content) => {
+  const postAnecdotesAndDispatch = async (dispatch) => {
+    const postNewAnekdotes = await postAnecdotes(content);
+    dispatch(allAnecdotes(postNewAnekdotes));
+  };
+  return postAnecdotesAndDispatch;
+};
+
 export default anecdoteSlice.reducer;
 
 // const anecdoteReducer = (state = initialState, action) => {
