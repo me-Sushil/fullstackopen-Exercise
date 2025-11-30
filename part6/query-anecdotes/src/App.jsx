@@ -15,12 +15,12 @@ const App = () => {
   })
 
   if (result.isLoading) {
-    return <div>Loading....</div>
+    return <div>loading data...</div>
   }
   if (result.isError) {
     return <div>anecdote service not available due to server problems</div>
   }
-  const anecdotes = result.data;
+  const anecdotes = result.data
 
   return (
     <div>
