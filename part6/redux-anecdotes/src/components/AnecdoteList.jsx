@@ -18,11 +18,14 @@ const AnecdoteList = () => {
     const newAnekdotesWithVote = { content, votes: votes + 1 };
     dispatch(updateVoteWithThunk(id, newAnekdotesWithVote));
     // dispatch(votes(id, newAnekdotesWithVote));
-    dispatch(setNotification(`You voted "${content}"`));
-    setTimeout(() => {
-      dispatch(setNotification(""));
-    }, 5000);
+    // dispatch(setNotification(`You voted "${content}"`));
+    // setTimeout(() => {
+    //   dispatch(setNotification(""));
+    // }, 5000);
+
+    dispatch(setNotification(`You voted "${content}"`, 5));
   };
+
   return (
     <>
       {[...anecdotes]
