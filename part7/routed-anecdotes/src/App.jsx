@@ -34,6 +34,7 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote));
     setNotification(`a new anecdote ${anecdote.content} created !`);
      navigate("/");
+     
     setTimeout(() => setNotification(''), 5000)
   };
 
