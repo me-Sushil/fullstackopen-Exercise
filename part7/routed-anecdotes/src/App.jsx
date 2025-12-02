@@ -4,6 +4,7 @@ import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import CreateNew from "./components/CreateNew";
 import AnecdoteList from "./components/AnecdoteList";
+import Anecdote from "./components/Anecdote";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
       <Menu />
       <Routes>
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route path="/:id" element={<Anecdote anecdotes={anecdotes} />} />
         <Route path="/create" element={<CreateNew addNew={addNew} />} />
         <Route path="/about" element={<About />} />
       </Routes>
