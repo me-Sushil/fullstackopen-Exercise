@@ -12,6 +12,9 @@ const CreateNew = (props) => {
       info,
       votes: 0,
     });
+    setAuthor("");
+    setContent("");
+    setInfo("");
   };
 
   return (
