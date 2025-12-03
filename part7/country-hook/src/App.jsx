@@ -1,20 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
 import Country from "./Country";
 import useCountry from "./hooks/useCountry";
-const useField = (type) => {
-  const [value, setValue] = useState("");
-
-  const onChange = (event) => {
-    setValue(event.target.value);
-  };
-
-  return {
-    type,
-    value,
-    onChange,
-  };
-};
+import useField from "./hooks/useField";
 
 const App = () => {
   const nameInput = useField("text");
