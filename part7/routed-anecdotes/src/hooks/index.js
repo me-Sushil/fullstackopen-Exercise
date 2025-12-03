@@ -7,10 +7,15 @@ const useField = (type) => {
     setValue(event.target.value);
   };
 
+  const reset = () => {
+    console.log("this is reset");
+    setValue("");
+  };
   return {
     type,
     value,
     onChange,
+    reset,
   };
 };
 export default useField;
