@@ -3,7 +3,6 @@ const CreateNew = (props) => {
   const content = useField("content");
   const author = useField("author");
   const info = useField("info");
-  // const reset = useField("reset");
 
   const handleSubmit = (e) => {
     e.preventDefault();
