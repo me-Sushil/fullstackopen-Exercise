@@ -3,6 +3,7 @@ const CreateNew = (props) => {
   const content = useField("content");
   const author = useField("author");
   const info = useField("info");
+  // const reset = useField("reset");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,6 +13,12 @@ const CreateNew = (props) => {
       info: info.value,
       votes: 0,
     });
+    resetFn();
+  };
+  const resetFn = () => {
+    content.reset();
+    author.reset();
+    info.reset();
   };
 
   return (
@@ -38,7 +45,10 @@ const CreateNew = (props) => {
           url for more info
           <input type={info.type} value={info.value} onChange={info.onChange} />
         </div>
-        <button>create</button>
+        <button type="submit">create</button>{" "}
+        <button type="reset" onClick={resetFn}>
+          reset
+        </button>
       </form>
     </div>
   );
