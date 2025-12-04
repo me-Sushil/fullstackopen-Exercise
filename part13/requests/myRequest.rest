@@ -4,7 +4,10 @@ post http://localhost:3001/api/blogs
 content-type:application/json
 
 {
-    "author":"Kukumama",
-    "url":"http://kukumama/new",
-    "title":"kukumama Blog"
+    "author":"Sushil",
+    "url":"http://sushil/new",
+    "title":"sushil Blog"
 }
+
+########
+delete http://localhost:3001/api/blogs/2
