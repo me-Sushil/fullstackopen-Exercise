@@ -4,9 +4,12 @@ const errorhandler = (error, req, res, next) => {
   if (error.name === "ReferenceError") {
     return res.status(400).json({ error: error.message });
   }
-  // Sequelize validation error
+
+    // Sequelize validation error  <-- EMAIL validation will come here
   if (error.name === "SequelizeValidationError") {
-    return res.status(400).json({ error: error.errors.map((e) => e.message) });
+    return res.status(400).json({
+      error: error.errors.map(e => e.message)
+    });
   }
   // Sequelize unique constraint error
   if (error.name === "SequelizeUniqueConstraintError") {
