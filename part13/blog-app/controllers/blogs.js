@@ -1,34 +1,79 @@
 const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const { SECRET } = require("../util/config");
 
-const { Blog } = require("../models");
+const { Blog, User } = require("../models");
 
 router.get("/", async (req, res, next) => {
   try {
-    const blogs = await Blog.findAll();
+    const blogs = await Blog.findAll({
+      attributes: { exclude: ["userId"] },
+      include: {
+        model: User,
+        attributes: ["name"],
+      },
+    });
     res.json(blogs);
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/", async (req, res, next) => {
+const tokenExtractor = (req, res, next) => {
+  const authorization = req.get("authorization");
+  console.log(authorization, "this is authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    try {
+      console.log(authorization.substring(7));
+      req.decodedToken = jwt.verify(authorization.substring(7), SECRET);
+    } catch (error) {
+      console.log(error);
+      return res.status(401).json({ error: "token invalid" });
+    }
+  } else {
+    return res.status(401).json({ error: "token missing" });
+  }
+  next();
+};
+
+router.post("/", tokenExtractor, async (req, res, next) => {
   try {
-    const blog = await Blog.create(req.body);
+    console.log(req.decodedToken.id, "this is id from header");
+    const user = await User.findByPk(req.decodedToken.id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const blog = await Blog.create({
+      ...req.body,
+      userId: user.id,
+      date: new Date(),
+    });
     res.json(blog);
   } catch (error) {
     next(error);
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", tokenExtractor, async (req, res, next) => {
   try {
-    const deleted = await Blog.destroy({
-      where: { id: req.params.id },
-    });
-    if (!deleted) {
+    const blog = await Blog.findByPk(req.params.id);
+
+    if (!blog) {
       return res.status(404).json({ error: "Blog not found" });
     }
-    res.status(204).end();
+    console.log(blog.id, "the Blog creater userid");
+    console.log(req.decodedToken.id, "the user userid");
+
+    // Check if the blog belongs to the logged-in user
+    if (blog.userId !== req.decodedToken.id) {
+      return res
+        .status(403)
+        .json({ error: "Only the blog creator can delete this blog" });
+    }
+
+    await blog.destroy();
+    return res.status(204).end();
   } catch (error) {
     next(error);
   }
