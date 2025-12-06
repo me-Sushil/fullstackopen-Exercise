@@ -2,15 +2,21 @@
 ###
 post http://localhost:3001/api/blogs
 content-type:application/json
+authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjcsImlhdCI6MTc2NTAyMjA4Mn0.4LPjJVNzfBmrIaT7kdSB5eKAaAqyMCLX8cAniKMbA78
 
 {
-    "author":"Sushil",
-    "url":"http://sushil/new",
-    "title":"sushil Blog"
+    "author":"Sushil0",
+    "url":"http://sushil/after0Token",
+    "title":"sushil Blog after 0 token"
 }
 
-########
-delete http://localhost:3001/api/blogs/2
+
+###########
+
+DELETE http://localhost:3001/api/blogs/6
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjcsImlhdCI6MTc2NTAyMjA4Mn0.4LPjJVNzfBmrIaT7kdSB5eKAaAqyMCLX8cAniKMbA78
+
+
 
 ###
 put http://localhost:3001/api/blogs/1
@@ -26,7 +32,7 @@ post http://localhost:3001/api/users
 content-type:application/json
 
 {
-    "username":"sushil112@gmail.com",
+    "username":"sushil0@gmail.com",
     "name":"Sushil"
 }
 
@@ -45,6 +51,6 @@ post http://localhost:3001/api/login
 content-type:application/json
 
 {
-    "username":"sushil112@gmail.com",
+    "username":"sushil0@gmail.com",
     "password":"secret"
 }
