@@ -2,19 +2,19 @@
 ###
 post http://localhost:3001/api/blogs
 content-type:application/json
-authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjcsImlhdCI6MTc2NTAyMjA4Mn0.4LPjJVNzfBmrIaT7kdSB5eKAaAqyMCLX8cAniKMbA78
+authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTAyMzcwMn0.-luO1COl6Tv8-DGfBaNidNwj3NCHYeJjyGtIkYSkSn4
 
 {
-    "author":"Sushil0",
-    "url":"http://sushil/after0Token",
-    "title":"sushil Blog after 0 token"
+    "author":"Sushil01",
+    "url":"http://sushil/after0w1Token",
+    "title":"sushil Blog after 0w1 token"
 }
 
 
 ###########
 
-DELETE http://localhost:3001/api/blogs/6
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjcsImlhdCI6MTc2NTAyMjA4Mn0.4LPjJVNzfBmrIaT7kdSB5eKAaAqyMCLX8cAniKMbA78
+DELETE http://localhost:3001/api/blogs/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTAyMzcwMn0.-luO1COl6Tv8-DGfBaNidNwj3NCHYeJjyGtIkYSkSn4
 
 
 
