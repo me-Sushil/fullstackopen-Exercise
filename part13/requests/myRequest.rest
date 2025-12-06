@@ -19,3 +19,22 @@ content-type:application/json
 {
     "likes": 2
 }
+
+########
+
+post http://localhost:3001/api/users
+content-type:application/json
+
+{
+    "username":"sushil",
+    "name":"Sushil"
+}
+
+##
+###
+PUT http://localhost:3001/api/users/sushil
+content-type: application/json
+
+{
+    "username": "sudesh"
+}
