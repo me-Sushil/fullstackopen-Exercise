@@ -26,7 +26,7 @@ post http://localhost:3001/api/users
 content-type:application/json
 
 {
-    "username":"sushil",
+    "username":"sushil112@gmail.com",
     "name":"Sushil"
 }
 
@@ -37,4 +37,14 @@ content-type: application/json
 
 {
     "username": "sudesh"
+}
+
+########
+
+post http://localhost:3001/api/login
+content-type:application/json
+
+{
+    "username":"sushil112@gmail.com",
+    "password":"secret"
 }
