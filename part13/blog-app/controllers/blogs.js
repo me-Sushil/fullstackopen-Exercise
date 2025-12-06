@@ -2,33 +2,49 @@ const router = require("express").Router();
 
 const { Blog } = require("../models");
 
-router.get("/", async (req, res) => {
-  const blogs = await Blog.findAll();
-  res.json(blogs);
-});
-
-router.post("/", async (req, res) => {
-  const blog = await Blog.create(req.body);
-  res.json(blog);
-});
-
-router.delete("/:id", async (req, res) => {
-  const deleted = await Blog.destroy({
-    where: { id: req.params.id },
-  });
-  if (!deleted) {
-    return res.status(404).json({ error: "Blog not found" });
+router.get("/", async (req, res, next) => {
+  try {
+    const blogs = await Blog.findAll();
+    res.json(blogs);
+  } catch (error) {
+    next(error);
   }
-  res.status(204).end();
 });
 
-router.put("/:id", async (req, res) => {
-  const blog = await Blog.findByPk(req.params.id);
-  
-  if (blog) {
-    blog.likes = req.body.likes;
-    await blog.save();
+router.post("/", async (req, res, next) => {
+  try {
+    const blog = await Blog.create(req.body);
     res.json(blog);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const deleted = await Blog.destroy({
+      where: { id: req.params.id },
+    });
+    if (!deleted) {
+      return res.status(404).json({ error: "Blog not found" });
+    }
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:id", async (req, res, next) => {
+  try {
+    const blog = await Blog.findByPk(req.params.id);
+
+    if (blog) {
+      blog.likes = req.body.likes;
+      await blog.save();
+      res.json(blog);
+    }
+  } catch (error) {
+    next(error);
   }
 });
 
