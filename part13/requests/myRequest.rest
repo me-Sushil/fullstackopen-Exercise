@@ -2,12 +2,55 @@
 ###
 post http://localhost:3001/api/blogs
 content-type:application/json
+authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTAyMzcwMn0.-luO1COl6Tv8-DGfBaNidNwj3NCHYeJjyGtIkYSkSn4
 
 {
-    "author":"Sushil",
-    "url":"http://sushil/new",
-    "title":"sushil Blog"
+    "author":"Sushil01",
+    "url":"http://sushil/after0w1Token",
+    "title":"sushil Blog after 0w1 token"
+}
+
+
+###########
+
+DELETE http://localhost:3001/api/blogs/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTAyMzcwMn0.-luO1COl6Tv8-DGfBaNidNwj3NCHYeJjyGtIkYSkSn4
+
+
+
+###
+put http://localhost:3001/api/blogs/1
+content-type:application/json
+
+{
+    "likes": 2
 }
 
 ########
-delete http://localhost:3001/api/blogs/2
+
+post http://localhost:3001/api/users
+content-type:application/json
+
+{
+    "username":"sushil0@gmail.com",
+    "name":"Sushil"
+}
+
+##
+###
+PUT http://localhost:3001/api/users/sushil
+content-type: application/json
+
+{
+    "username": "sudesh"
+}
+
+########
+
+post http://localhost:3001/api/login
+content-type:application/json
+
+{
+    "username":"sushil0@gmail.com",
+    "password":"secret"
+}
