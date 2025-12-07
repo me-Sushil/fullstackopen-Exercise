@@ -1,49 +1,79 @@
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require("sequelize");
 
 module.exports = {
   up: async ({ context: queryInterface }) => {
-    await queryInterface.createTable('notes', {
+    await queryInterface.createTable("users", {
       id: {
         type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        autoIncrement: true
-      },
-      content: {
-        type: DataTypes.TEXT,
-        allowNull: false
-      },
-      important: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-      },
-      date: {
-        type: DataTypes.DATE
-      },
-    })
-    await queryInterface.createTable('users', {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
       },
       username: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false
+        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
-    })
-    await queryInterface.addColumn('notes', 'user_id', {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: { model: 'users', key: 'id' },
-    })
+      admin: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      disabled: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    });
+
+    await queryInterface.createTable("blogs", {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      author: {
+        type: DataTypes.STRING,
+      },
+      title: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      likes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      user_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: { model: "users", key: "id" },
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+    });
   },
+
   down: async ({ context: queryInterface }) => {
-    await queryInterface.dropTable('notes')
-    await queryInterface.dropTable('users')
+    await queryInterface.dropTable("blogs");
+    await queryInterface.dropTable("users");
   },
-}
+};
