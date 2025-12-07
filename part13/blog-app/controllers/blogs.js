@@ -41,7 +41,7 @@ router.get("/", async (req, res, next) => {
 const tokenExtractor = (req, res, next) => {
   const authorization = req.get("authorization");
   console.log(authorization, "this is authorization");
-  
+
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     try {
       console.log(authorization.substring(7));
@@ -71,6 +71,9 @@ router.post("/", tokenExtractor, async (req, res, next) => {
     });
     res.json(blog);
   } catch (error) {
+    if (error.name === "SequelizeValidationError") {
+      return res.status(400).json({ error: error.errors[0].message });
+    }
     next(error);
   }
 });
