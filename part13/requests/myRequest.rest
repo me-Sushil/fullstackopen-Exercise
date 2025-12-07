@@ -2,15 +2,17 @@
 ###
 post http://localhost:3001/api/blogs
 content-type:application/json
-authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTAyMzcwMn0.-luO1COl6Tv8-DGfBaNidNwj3NCHYeJjyGtIkYSkSn4
+authorization:bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1c2hpbDBAZ21haWwuY29tIiwiaWQiOjEsImlhdCI6MTc2NTEwMDE3Mn0.ONugbnKiNsyPEn2hJ0eVZ7FS7f9A8bd1UPpXgJ2l4qA
 
 {
-    "author":"Sushil01",
-    "url":"http://sushil/after0w1Token",
-    "title":"sushil Blog after 0w1 token"
+    "title": "My Blog",
+  "author": "ABC",
+  "url": "https://example.com",
+  "year": 2995
 }
 
 
+########
 ###########
 
 DELETE http://localhost:3001/api/blogs/1
