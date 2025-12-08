@@ -60,45 +60,53 @@ router.get("/", async (req, res, next) => {
 // });
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-
+    // 1. Initialize the filter object for the join table
+    const readFilter = {};
+    
+    // 2. Check for the 'read' query parameter and apply the filter
+    if (req.query.read) {
+        // Query parameters are strings, so convert 'true'/'false' to booleans
+        const readStatus = req.query.read === 'true'; 
+        
+        // Add a filter for the 'read' column in the ReadingList join table
+        readFilter.read = readStatus;
+    }
+    
+    // 3. Fetch user and the reading list
+    const user = await User.findByPk(req.params.id, {
+      attributes: ['name', 'username'],
+      include: [
+        {
+          model: Blog,
+          as: "reading_lists", 
+          
+          attributes: ["id", "url", "title", "author", "likes", "year"],
+          
+          // Include 'read' status and 'id' from the join table
+          through: {
+            attributes: ['read', 'id'],
+            //  APPLY THE CONDITIONAL FILTER HERE
+            where: readFilter, 
+          },
+        },
+      ],
+    });
+    
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    
+    // 4. Transform and respond
+    const userJson = user.toJSON(); 
 
-    // CHANGE: Include the through table attributes (read and id from ReadingList)
-    const readingListEntries = await ReadingList.findAll({
-      where: {
-        userId: req.params.id,
-      },
-      include: {
-        model: Blog,
-        attributes: ["id", "url", "title", "author", "likes", "year"],
-      },
-    });
+    const response = {
+        name: userJson.name,
+        username: userJson.username,
+        readings: userJson.reading_lists 
+    };
 
-    // CHANGE: Transform to include readinglists array with read status and junction table id
-    const readings = readingListEntries.map((entry) => ({
-      id: entry.blog.id,
-      url: entry.blog.url,
-      title: entry.blog.title,
-      author: entry.blog.author,
-      likes: entry.blog.likes,
-      year: entry.blog.year,
-      // NEW: Add readinglists array with read status and junction table id
-      readinglists: [
-        {
-          read: entry.read, // The read status from ReadingList table
-          id: entry.id, // The primary key id from ReadingList junction table
-        },
-      ],
-    }));
+    res.json(response);
 
-    res.json({
-      name: user.name,
-      username: user.username,
-      readings: readings,
-    });
   } catch (error) {
     next(error);
   }
