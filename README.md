@@ -1,4 +1,4 @@
-# Full Stack Open 2024 - Course Exercises Repository 🚀
+# Full Stack Open - Course Exercises Repository 🚀
 
 This repository contains all the exercises and projects I completed as part of the **Full Stack Open** course, organized by the **University of Helsinki**.
 
@@ -68,10 +68,7 @@ I successfully completed **all mandatory exercises** for the Full Stack Open cou
 - **Completion Status:** 100%  
 - **Total Exercises:** 168
 - **Total Time Taken :**  83 hours 
-- **Certificate:** *[[Insert certificate link if you have one](https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/26e2b45ff25626ff7d5063106fbc7e54)]*
-- Certificate : https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/26e2b45ff25626ff7d5063106fbc7e54
-Relational Database Certificate : https://studies.cs.helsinki.fi/stats/api/certificate/fs-psql/en/189414f688fb72cfc9757c554457af3b 
+- **Certificate:** https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/26e2b45ff25626ff7d5063106fbc7e54 <br>
+- **Relational Database Certificate :** https://studies.cs.helsinki.fi/stats/api/certificate/fs-psql/en/189414f688fb72cfc9757c554457af3b 
 
 This repository serves as a portfolio of my work and a practical demonstration of my skills in the **MERN stack** (MongoDB, Express, React, Node) and related technologies like **GraphQL** and **TypeScript**.
-
----
