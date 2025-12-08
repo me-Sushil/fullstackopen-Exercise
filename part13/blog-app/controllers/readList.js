@@ -72,30 +72,37 @@ router.get("/", tokenExtractor, async (req, res) => {
   }
 });
 
-// Mark a blog as read/unread in reading list
-router.put("/:blogId", tokenExtractor, async (req, res) => {
+router.put('/:id', tokenExtractor, async (req, res) => {
   try {
-    const readingListEntry = await ReadingList.findOne({
+    const entryId = req.params.id;
+    const userId = req.decodedToken.id;
+    const { read } = req.body;
+      if (typeof read !== 'boolean') {
+      return res.status(400).json({ error: 'The request body must contain a boolean "read" field.' });
+    }
+     const readingListEntry = await ReadingList.findOne({
       where: {
-        userId: req.decodedToken.id,
-        blogId: req.params.blogId,
-      },
+        id: entryId,
+        userId: userId, 
+      }
     });
 
     if (!readingListEntry) {
-      return res.status(404).json({ error: "blog not in reading list" });
+      return res.status(404).json({ error: 'Reading list entry not found or you do not have permission to modify it.' });
     }
 
-    readingListEntry.read = req.body.read;
+    readingListEntry.read = read;
     await readingListEntry.save();
 
-    const blog = await Blog.findByPk(req.params.blogId);
+    const blog = await Blog.findByPk(readingListEntry.blogId);
 
     res.json({
-      blogId: blog.id,
-      title: blog.title,
-      read: readingListEntry.read,
+      message: 'Reading status updated successfully.',
+      readingListId: readingListEntry.id,
+      blogTitle: blog ? blog.title : 'N/A',
+      readStatus: readingListEntry.read
     });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
