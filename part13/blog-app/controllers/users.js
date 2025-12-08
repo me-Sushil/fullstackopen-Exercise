@@ -7,6 +7,7 @@ router.get("/", async (req, res, next) => {
     const users = await User.findAll({
       include: {
         model: Blog,
+        as: "authored_blogs",
         // attributes: { exclude: ["userId"] },
         attributes: ["id", "author", "title", "url", "likes"],
       },
@@ -14,6 +15,30 @@ router.get("/", async (req, res, next) => {
     if (users) {
       res.json(users);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Blog,
+          as: "reading_lists",
+          attributes: ["id", "author", "title", "url", "likes"],
+          through: {
+            attributes: ["id", "read"],
+          },
+        },
+      ],
+    });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
   } catch (error) {
     next(error);
   }
