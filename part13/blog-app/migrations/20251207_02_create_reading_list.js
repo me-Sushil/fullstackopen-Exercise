@@ -25,6 +25,12 @@ module.exports = {
         defaultValue: false,
       },
     });
+
+    await queryInterface.addConstraint('reading_lists', {
+        fields: ['user_id', 'blog_id'],
+        type: 'unique',
+        name: 'reading_list_unique_entry'
+    });
   },
   down: async ({ context: queryInterface }) => {
     await queryInterface.dropTable("reading_lists");

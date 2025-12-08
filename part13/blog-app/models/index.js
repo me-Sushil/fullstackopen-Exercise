@@ -1,13 +1,15 @@
 const Blog = require("./blog");
 const User = require("./user");
+const ReadingList = require("./readingList");
 
-User.hasMany(Blog)
-Blog.belongsTo(User)
+// models/index.js
+// 1. One-to-Many (Author's blogs)
+User.hasMany(Blog, { as: 'authored_blogs' });
+Blog.belongsTo(User); 
 
-// User.sync({ alter: true })
-// Blog.sync({ alter: true })
+// 2. Many-to-Many (Reading list)
+User.belongsToMany(Blog, { through: ReadingList, as: "reading_lists" }); 
+Blog.belongsToMany(User, { through: ReadingList, as: "readBy" });
 
-module.exports = {
-  Blog,
-  User,
-};
+
+module.exports = { User, Blog, ReadingList };
