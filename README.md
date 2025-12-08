@@ -63,7 +63,7 @@ The course is divided into multiple parts, each focusing on a specific area of f
 
 ## ✅ My Progress
 
-I successfully completed **all mandatory exercises** for the Full Stack Open course.
+I successfully completed **all  exercises** for the Full Stack Open course.
 
 - **Completion Status:** 100%  
 - **Total Exercises:** 168
