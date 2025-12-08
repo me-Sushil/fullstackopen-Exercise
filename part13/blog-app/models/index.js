@@ -8,8 +8,17 @@ User.hasMany(Blog, { as: 'authored_blogs' });
 Blog.belongsTo(User); 
 
 // 2. Many-to-Many (Reading list)
-User.belongsToMany(Blog, { through: ReadingList, as: "reading_lists" }); 
-Blog.belongsToMany(User, { through: ReadingList, as: "readBy" });
 
+User.belongsToMany(Blog, { 
+  through: ReadingList, 
+  as:"reading_lists",
+  foreignKey: "user_id"
+});
 
-module.exports = { User, Blog, ReadingList };
+Blog.belongsToMany(User, { 
+  through: ReadingList, 
+  as: "readBy",
+  foreignKey: "blog_id"
+});
+
+module.exports = { User, Blog };

@@ -23,13 +23,22 @@ module.exports = {
       read: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
+        allowNull: false,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
     });
 
-    await queryInterface.addConstraint('reading_lists', {
-        fields: ['user_id', 'blog_id'],
-        type: 'unique',
-        name: 'reading_list_unique_entry'
+    await queryInterface.addConstraint("reading_lists", {
+      fields: ["user_id", "blog_id"],
+      type: "unique",
+      name: "unique_user_blog",
     });
   },
   down: async ({ context: queryInterface }) => {

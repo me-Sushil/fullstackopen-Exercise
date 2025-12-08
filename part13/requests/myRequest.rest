@@ -56,3 +56,180 @@ content-type:application/json
     "username":"sushil0@gmail.com",
     "password":"secret"
 }
+
+############################################################################################
+
+### ========== SETUP: Create User ==========
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "testuser@gmail.com",
+    "name": "Test User"
+}
+
+### ========== SETUP: Login to get Token ==========
+POST http://localhost:3001/api/login
+Content-Type: application/json
+
+{
+    "username": "testuser@gmail.com",
+    "password": "secret"
+}
+
+### ========== SETUP: Create a Blog ==========
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+{
+    "title": "My First Blog2",
+    "author": "John Doe2",
+    "url": "https://example.com2",
+    "year": 2024
+}
+
+### ========== TEST 1: Add Blog to Reading List (UNREAD by default) ==========
+POST http://localhost:3001/api/readinglists
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+{
+    "blogId": 7
+}
+
+### Expected Response (201):
+### {
+###   "message": "blog added to reading list",
+###   "blogId": 1,
+###   "title": "My First Blog",
+###   "read": false
+### }
+
+###
+
+### ========== TEST 2: Get User's Reading List ==========
+GET http://localhost:3001/api/readinglists
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+
+### Expected Response (200):
+### [
+###   {
+###     "id": 1,
+###     "userId": 1,
+###     "blogId": 1,
+###     "read": false,
+###     "blog": {
+###       "id": 1,
+###       "title": "My First Blog",
+###       "author": "John Doe",
+###       "url": "https://example.com",
+###       "likes": 0
+###     }
+###   }
+### ]
+
+###
+
+### ========== TEST 3: Mark Blog as READ ==========
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+{
+    "read": true
+}
+
+### Expected Response (200):
+### {
+###   "blogId": 1,
+###   "title": "My First Blog",
+###   "read": true
+### }
+
+###
+
+### ========== TEST 4: Verify Reading List Updated (should show read: true) ==========
+GET http://localhost:3001/api/readinglists
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+###
+
+### ========== TEST 5: Mark Blog as UNREAD again ==========
+PUT http://localhost:3001/api/readinglists/1
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+{
+    "read": false
+}
+
+### Expected Response (200):
+### {
+###   "blogId": 1,
+###   "title": "My First Blog",
+###   "read": false
+### }
+
+###
+
+### ========== TEST 6: Try Adding Same Blog Again (should fail) ==========
+POST http://localhost:3001/api/readinglists
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+{
+    "blogId": 1
+}
+
+### Expected Response (400):
+### {
+###   "error": "blog already in reading list"
+### }
+
+###
+
+### ========== TEST 7: Remove Blog from Reading List ==========
+DELETE http://localhost:3001/api/readinglists/1
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+### Expected Response (200):
+### {
+###   "message": "blog removed from reading list"
+### }
+
+###
+
+### ========== TEST 8: Verify Reading List is Empty ==========
+GET http://localhost:3001/api/readinglists
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+### Expected Response (200):
+### []
+
+###
+
+### ========== TEST 9: Try Removing Non-existent Blog (should fail) ==========
+DELETE http://localhost:3001/api/readinglists/99
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+### Expected Response (404):
+### {
+###   "error": "blog not in reading list"
+### }
+
+###
+
+### ========== TEST 10: Try Adding Non-existent Blog (should fail) ==========
+POST http://localhost:3001/api/readinglists
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyQGdtYWlsLmNvbSIsImlkIjoyLCJpYXQiOjE3NjUxOTY1Njl9.QYFWCN9C2aNuDVrMpCynp2YK0Tj-D9vu3eq4yRgLnLc
+
+{
+    "blogId": 999
+}
+
+### Expected Response (404):
+### {
+###   "error": "blog not found"
+### }
+
+###
