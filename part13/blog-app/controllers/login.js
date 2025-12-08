@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 
 const { SECRET } = require("../util/config");
-const User = require("../models/user");
+const { User, Session } = require("../models");
 
 router.post("/", async (request, response, next) => {
   const body = request.body;
@@ -16,9 +16,15 @@ router.post("/", async (request, response, next) => {
     const passwordCorrect = body.password === "secret";
 
     if (!(user && passwordCorrect)) {
-        
       return response.status(401).json({
         error: "invalid username or password",
+      });
+    }
+
+    if (user.disabled) {
+      // Check the 'disabled' column
+      return response.status(401).json({
+        error: "account disabled, please contact admin",
       });
     }
 
@@ -28,6 +34,12 @@ router.post("/", async (request, response, next) => {
     };
 
     const token = jwt.sign(userForToken, SECRET);
+
+    // ADD: Save the active session (token) to the database
+    await Session.create({
+      userId: user.id,
+      token: token,
+    });
 
     response
       .status(200)
