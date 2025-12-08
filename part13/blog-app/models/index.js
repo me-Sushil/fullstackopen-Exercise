@@ -3,7 +3,6 @@ const User = require("./user");
 const ReadingList = require("./readingList");
 const Session = require("./session");
 
-// models/index.js
 // 1. One-to-Many (Author's blogs)
 User.hasMany(Blog, { as: "authored_blogs" });
 Blog.belongsTo(User);
