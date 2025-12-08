@@ -70,5 +70,7 @@ I successfully completed **all  exercises** for the Full Stack Open course.
 - **Total Time Taken :**  83 hours 
 - **Certificate:** https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/26e2b45ff25626ff7d5063106fbc7e54 <br>
 - **Relational Database Certificate :** https://studies.cs.helsinki.fi/stats/api/certificate/fs-psql/en/189414f688fb72cfc9757c554457af3b 
+<img width="3508" height="2480" alt="certificate-fullstack" src="https://github.com/user-attachments/assets/32cb89ca-deb6-4087-a338-7319fb69c8ec" />
+<img width="3508" height="2480" alt="certificate-psql" src="https://github.com/user-attachments/assets/6f7530d7-a658-43bc-bb11-2d8906eb8ddd" />
 
 This repository serves as a portfolio of my work and a practical demonstration of my skills in the **MERN stack** (MongoDB, Express, React, Node) and related technologies like **GraphQL** and **TypeScript**.
