@@ -28,7 +28,7 @@ GraphQL
 JavaScript (ES6+), TypeScript (static typing)
 
 **Testing:**  
-Unit, Integration, End-to-End Testing (Jest, React Testing Library, Cypress)
+Unit, Integration, End-to-End Testing (Jest, React Testing Library, PlayWright)
 
 **DevOps:**  
 CI/CD, Container Technology (Docker/Kubernetes)
