@@ -73,4 +73,4 @@ I successfully completed **all  exercises** for the Full Stack Open course.
 <img width="3508" height="2480" alt="certificate-fullstack" src="https://github.com/user-attachments/assets/32cb89ca-deb6-4087-a338-7319fb69c8ec" />
 <img width="3508" height="2480" alt="certificate-psql" src="https://github.com/user-attachments/assets/6f7530d7-a658-43bc-bb11-2d8906eb8ddd" />
 
-This repository serves as a portfolio of my work and a practical demonstration of my skills in the **MERN stack** (MongoDB, Express, React, Node) and related technologies like **GraphQL** and **TypeScript**.
+This repository serves as a portfolio of my work and a practical demonstration of my skills in the **MERN stack** (MongoDB, Express, React, Node), Relational Database and related technologies like **GraphQL** and **TypeScript**.
